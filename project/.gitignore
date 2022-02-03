@@ -32,5 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-
-.application.properties
+/IV1201/project/src/main/resources/application.properties
