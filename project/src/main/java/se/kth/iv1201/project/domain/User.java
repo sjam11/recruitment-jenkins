@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "applicant")
 public class User implements UserDTO{
-    @ID
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "person_id")
     private int personID;

@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "competence_profile")
 public class CompetenceProfile implements CompetenceProfileDTO{
-    @ID
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "competence_profile_id")
     private int competenceProfileID;

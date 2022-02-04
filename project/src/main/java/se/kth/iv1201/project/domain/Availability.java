@@ -1,11 +1,12 @@
 package se.kth.iv1201.project.domain;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "availability")
 public class Availability implements AvailabilityDTO{
-    @ID
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "availability_id")
     private int availabilityID;
