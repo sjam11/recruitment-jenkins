@@ -60,7 +60,7 @@ public class Availability implements AvailabilityDTO{
     }
 
     public Date getFromDate(){
-        return fromdate;
+        return fromDate;
     }
 
     public Date getToDate(){

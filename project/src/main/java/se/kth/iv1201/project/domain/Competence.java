@@ -20,11 +20,11 @@ public class Competence implements CompetenceDTO{
         this.name = name;
     }
 
-    public int setCompetenceID(int competenceID){
+    public void setCompetenceID(int competenceID){
         this.competenceID = competenceID;
     }
 
-    public String setName(String name){
+    public void setName(String name){
         this.name = name;
     }
 

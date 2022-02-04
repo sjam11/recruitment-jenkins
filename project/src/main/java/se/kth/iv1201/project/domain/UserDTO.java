@@ -7,7 +7,7 @@ public interface UserDTO {
     
     String getLastName();
 
-    int getPIN();
+    String getPIN();
 
     String getEmail();
 

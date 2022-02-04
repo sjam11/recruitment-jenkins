@@ -20,7 +20,7 @@ public class User implements UserDTO{
         name = "surname",
         nullable = false
     )
-    private String lastTime;
+    private String lastName;
 
     @Column(
         name = "pnr",
@@ -53,7 +53,7 @@ public class User implements UserDTO{
 
     public User(String firstName, String lastName, String pin, String email, String password, int roleID, String username){
         this.firstName = firstName;
-        this.lastTime = lastName;
+        this.lastName = lastName;
         this.pin = pin;
         this.email = email;
         this.password = password;
@@ -73,7 +73,7 @@ public class User implements UserDTO{
         this.lastName = lastName;
     }
 
-    public void setPIN(int pin){
+    public void setPIN(String pin){
         this.pin = pin;
     }
 
@@ -102,10 +102,10 @@ public class User implements UserDTO{
     }
 
     public String getLastName(){
-        return lastTime;
+        return lastName;
     }
 
-    public int getPIN(){
+    public String getPIN(){
         return pin;
     }
 
