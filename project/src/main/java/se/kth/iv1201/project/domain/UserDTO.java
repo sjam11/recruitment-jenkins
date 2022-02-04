@@ -1,5 +1,19 @@
 package se.kth.iv1201.project.domain;
 
 public interface UserDTO {
+    int getPersonID();
+
+    String getFirstName();
     
+    String getLastName();
+
+    int getPIN();
+
+    String getEmail();
+
+    String getPassword();
+
+    int roleID();
+
+    String getUsername();
 }
