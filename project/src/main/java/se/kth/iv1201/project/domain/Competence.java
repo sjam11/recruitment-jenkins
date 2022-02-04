@@ -1,9 +1,7 @@
 package se.kth.iv1201.project.domain;
 
-import javax.annotation.processing.Generated;
-import javax.management.OrQueryExp;
+
 import javax.persistence.*;
-import jdk.jfr.events.CertificateId;
 
 @Entity
 @Table(name = "competence")
