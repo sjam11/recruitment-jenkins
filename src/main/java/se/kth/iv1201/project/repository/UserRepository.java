@@ -13,5 +13,9 @@ import se.kth.iv1201.project.domain.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
     User findUserByUserId(int id);
+
+    User findUserByPIN(String pin);
+
+    User findUserByUsername(String username);
     
 }
