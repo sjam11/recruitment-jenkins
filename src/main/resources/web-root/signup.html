@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">Sign up</h3>
+        <form action="application" class="signUp" method="post">
+          <div class="txt_field">
+            <input type="text" id="name" name="name" />
+            <span></span>
+            <label for="name">Username:</label>
+          </div>
+          <div class="txt_field">
+            <input type="password" id="passw" name="password" />
+            <span></span>
+            <label for="passw">Password:</label>
+          </div>
+          <div class="txt_field">
+            <input type="text" id="email" name="email" />
+            <span></span>
+            <label for="email">Email:</label>
+          </div>
+          <div>
+            <a href="/">Already have an account? </a>
+          </div>
+
+          <input type="submit" value="Signup" class="button" />
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -16,10 +16,21 @@
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
-		<java.version>11</java.version>
+		<java.version>13</java.version>
 	</properties>
 	
 	<dependencies>	
+		<dependency>
+		<groupId>org.codehaus.groovy</groupId>
+		<artifactId>groovy</artifactId>
+		<version>3.0.7</version>
+	</dependency>
+
+	<dependency>
+	<groupId>nz.net.ultraq.thymeleaf</groupId>
+	<artifactId>thymeleaf-layout-dialect</artifactId>
+	<version>2.5.1</version>
+</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -91,4 +102,20 @@
 		</plugins>
 	</build>
 
+
+	<dependencyManagement>
+	
+
+		<dependencies>
+		
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>6.0.0.Beta3</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
 </project>
