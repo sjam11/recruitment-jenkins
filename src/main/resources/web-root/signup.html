@@ -21,31 +21,53 @@
   </head>
   <body>
     <main layout:fragment="content">
-      <div class="outer">
-        <h3 class="banner">Sign up</h3>
-        <form action="application" class="signUp" method="post">
-          <div class="txt_field">
-            <input type="text" id="name" name="name" />
-            <span></span>
-            <label for="name">Username:</label>
-          </div>
-          <div class="txt_field">
-            <input type="password" id="passw" name="password" />
-            <span></span>
-            <label for="passw">Password:</label>
-          </div>
-          <div class="txt_field">
-            <input type="text" id="email" name="email" />
-            <span></span>
-            <label for="email">Email:</label>
+      <section class="outer">
+        <h3>Signup</h3>
+        <form
+          th:action="@{/signup}"
+          th:object="${createUserForm}"
+          method="post"
+        >
+          <div class="form">
+            <label for="first-name">Firstname</label>:<input
+              type="text"
+              th:field="*{firstName}"
+              id="first-name"
+            />
+            <label for="last-name">Lastname</label>:<input
+              type="text"
+              th:field="*{lastName}"
+              id="last-name"
+            />
+            <label for="user-name">Username</label>:<input
+              type="text"
+              th:field="*{username}"
+              id="user-name"
+            />
+            <label for="email">Email</label>:<input
+              type="text"
+              th:field="*{email}"
+              id="email"
+            />
+            <label for="password">Password</label>:<input
+              type="text"
+              th:field="*{password}"
+              id="password"
+            />
+            <label for="personNr">Personnumber</label>:<input
+              type="text"
+              th:field="*{personNr}"
+              id="personNr"
+            />
           </div>
           <div>
             <a href="/">Already have an account? </a>
           </div>
-
-          <input type="submit" value="Signup" class="button" />
+          <p class="submit">
+            <input class="button" type="submit" value="Signup" />
+          </p>
         </form>
-      </div>
+      </section>
     </main>
   </body>
 </html>

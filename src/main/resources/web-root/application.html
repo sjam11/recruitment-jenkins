@@ -22,7 +22,9 @@
   <body>
     <main layout:fragment="content">
       <div class="outer">
-        <h3 class="banner">Welcome</h3>
+        <h3 class="banner">
+          Welcome <span th:text="*{currentUser.username}"></span>
+        </h3>
       </div>
     </main>
   </body>
