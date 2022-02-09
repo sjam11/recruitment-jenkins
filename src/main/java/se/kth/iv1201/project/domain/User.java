@@ -3,7 +3,7 @@ package se.kth.iv1201.project.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "applicant")
+@Table(name = "person")
 public class User implements UserDTO{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -11,19 +11,19 @@ public class User implements UserDTO{
     private int personID;
 
     @Column(
-        name = "name",
+        name = "first_name",
         nullable = false
     )
     private String firstName;
 
     @Column(
-        name = "surname",
+        name = "last_name",
         nullable = false
     )
     private String lastName;
 
     @Column(
-        name = "pnr",
+        name = "person_number",
         nullable = false
     )
     private String pin;
@@ -51,6 +51,16 @@ public class User implements UserDTO{
     )
     private String username;
 
+    /**
+     * creates a new user with the specified information
+     * @param firstName users first name
+     * @param lastName users last name
+     * @param pin users personal identification number
+     * @param email users email
+     * @param password users password
+     * @param roleID users role
+     * @param username users username
+     */
     public User(String firstName, String lastName, String pin, String email, String password, int roleID, String username){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,6 +70,11 @@ public class User implements UserDTO{
         this.roleID = roleID;
         this.username = username;
     }
+
+    /**
+     * Required by JPA, should not be used.
+     */
+    protected User(){}
 
     public void setPersonID(int personID){
         this.personID = personID;

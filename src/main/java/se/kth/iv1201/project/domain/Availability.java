@@ -29,11 +29,22 @@ public class Availability implements AvailabilityDTO{
     )
     private Date toDate;
 
+    /**
+     * Creates a new instance for a specific person.
+     * @param personID the person id for the person corresponding to this instance
+     * @param fromDate start date of availability
+     * @param toDate end date of availability
+     */
      public Availability(int personID, Date fromDate, Date toDate){
          this.personID = personID;
          this.fromDate = fromDate;
          this.toDate = toDate;
      }
+
+     /**
+     * Required by JPA, should not be used.
+     */
+     protected Availability(){}
 
      public void setAvailabilityID(int availabilityID){
          this.availabilityID = availabilityID;
