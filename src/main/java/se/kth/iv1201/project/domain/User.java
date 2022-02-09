@@ -11,19 +11,19 @@ public class User implements UserDTO{
     private int personID;
 
     @Column(
-        name = "first_name",
+        name = "name",
         nullable = false
     )
     private String firstName;
 
     @Column(
-        name = "last_name",
+        name = "surname",
         nullable = false
     )
     private String lastName;
 
     @Column(
-        name = "person_number",
+        name = "pnr",
         nullable = false
     )
     private String pin;
