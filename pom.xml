@@ -16,7 +16,7 @@
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
-		<java.version>11</java.version>
+		<java.version>13</java.version>
 	</properties>
 	
 	<dependencies>	
@@ -102,4 +102,20 @@
 		</plugins>
 	</build>
 
+
+	<dependencyManagement>
+	
+
+		<dependencies>
+		
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>6.0.0.Beta3</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
 </project>
