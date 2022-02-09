@@ -16,9 +16,18 @@ public class Role implements RoleDTO{
     )
     private String name;
 
+    /**
+     * Creates a new role
+     * @param name the role name
+     */
     public Role(String name){
         this.name = name;
     }
+
+    /**
+     * Required by JPA, should not be used.
+     */
+    protected Role(){}
 
     public void setRoleID(int roleID){
         this.roleID = roleID;

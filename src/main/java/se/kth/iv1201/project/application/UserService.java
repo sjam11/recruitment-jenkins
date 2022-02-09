@@ -27,9 +27,6 @@ public class UserService {
         return userRepository.findPersonByPersonID(id);
     }
 
-    
-
-
     public UserDTO createUser(String firstName, String lastName, String pin, String email, 
                             String password, String roleName, String username) throws IllegalUserRegistrationException{
         

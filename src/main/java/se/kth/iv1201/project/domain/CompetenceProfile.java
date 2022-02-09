@@ -32,11 +32,22 @@ public class CompetenceProfile implements CompetenceProfileDTO{
     )
     private BigDecimal yearsOfExperience;
 
+    /**
+     * Creates a new intence about specified competence corresponding to a person.
+     * @param personID the person id for the person
+     * @param competenceID the competence
+     * @param yearsOfExperience the year of experience of the competence
+     */
     public CompetenceProfile(int personID, int competenceID, BigDecimal yearsOfExperience){
         this.personID = personID;
         this.competenceID = competenceID;
         this.yearsOfExperience = yearsOfExperience;
     }
+
+    /**
+     * Required by JPA, should not be used.
+     */
+    protected CompetenceProfile(){}
 
     public void setCompetenceProfileID(int competenceProfileID){
         this.competenceProfileID = competenceProfileID;

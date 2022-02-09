@@ -23,24 +23,34 @@ public class Application implements ApplicationDTO{
     )
     private String status;
 
-     public Application(int personID, String status){
-         this.personID = personID;
-         this.status = status;
-     }
+    /**
+     * Creates a new intstance with the specified person id and application status.
+     * @param personID the users account id.
+     * @param status the status of the application accepted/not handled/declined.
+     */
+    public Application(int personID, String status){
+        this.personID = personID;
+        this.status = status;
+    }
 
-     public void setApplicationID(int applicationID){
-         this.applicationID = applicationID;
-     }
+    /**
+     * Required by JPA, should not be used.
+     */
+    protected Application(){}
 
-     public void setPersonID(int personID){
-         this.personID = personID;
+    public void setApplicationID(int applicationID){
+        this.applicationID = applicationID;
+    }
+
+    public void setPersonID(int personID){
+        this.personID = personID;
      }
 
      public void setStatus(String status){
-         this.status = status;
+        this.status = status;
      }
 
-     public int getApplicationID(){
+    public int getApplicationID(){
         return applicationID;
     }
 
