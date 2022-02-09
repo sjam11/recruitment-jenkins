@@ -1,5 +1,7 @@
 package se.kth.iv1201.project.domain;
 
+import java.math.BigDecimal;
+
 public interface CompetenceProfileDTO {
     int getCompetenceProfileID();
     
@@ -7,5 +9,5 @@ public interface CompetenceProfileDTO {
 
     int getCompetenceID();
 
-    int getYearOfExperience();
+    BigDecimal getYearOfExperience();
 }
