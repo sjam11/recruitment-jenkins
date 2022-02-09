@@ -1,5 +1,7 @@
 package se.kth.iv1201.project.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 
@@ -28,9 +30,9 @@ public class CompetenceProfile implements CompetenceProfileDTO{
         name = "years_of_experience",
         nullable = false
     )
-    private int yearsOfExperience;
+    private BigDecimal yearsOfExperience;
 
-    public CompetenceProfile(int personID, int competenceID, int yearsOfExperience){
+    public CompetenceProfile(int personID, int competenceID, BigDecimal yearsOfExperience){
         this.personID = personID;
         this.competenceID = competenceID;
         this.yearsOfExperience = yearsOfExperience;
@@ -48,7 +50,7 @@ public class CompetenceProfile implements CompetenceProfileDTO{
         this.competenceID = competenceID;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience){
+    public void setYearsOfExperience(BigDecimal yearsOfExperience){
         this.yearsOfExperience = yearsOfExperience;
     }
 
@@ -64,7 +66,7 @@ public class CompetenceProfile implements CompetenceProfileDTO{
         return competenceID;
     }
 
-    public int getYearOfExperience(){
+    public BigDecimal getYearOfExperience(){
         return yearsOfExperience;
     }
 }

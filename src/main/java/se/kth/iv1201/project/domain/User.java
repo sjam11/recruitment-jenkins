@@ -3,7 +3,7 @@ package se.kth.iv1201.project.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "applicant")
+@Table(name = "person")
 public class User implements UserDTO{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

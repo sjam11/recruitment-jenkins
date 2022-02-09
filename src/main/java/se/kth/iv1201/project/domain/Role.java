@@ -3,7 +3,7 @@ package se.kth.iv1201.project.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "competence_profile")
+@Table(name = "role")
 public class Role implements RoleDTO{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
