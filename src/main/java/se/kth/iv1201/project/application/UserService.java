@@ -45,8 +45,8 @@ public class UserService {
                         roleName + "in the system."); 
         }
 
-        int roleID = roleRepository.findRoleIDByName(roleName);
-        User user = new User(firstName, lastName, pin, email, password, roleID, username);
+        //int roleID = roleRepository.findRoleIDByName(roleName);
+        User user = new User(firstName, lastName, pin, email, password, 1, username);
         try{
             userRepository.save(user);
         } catch(Exception e){
