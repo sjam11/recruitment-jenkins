@@ -65,12 +65,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>6.0.0.Beta3</version>
 		</dependency>
--->
+
 	</dependencies>
 
 	<build>
@@ -103,5 +103,19 @@
 	</build>
 
 
+	<dependencyManagement>
+	
 
+		<dependencies>
+		
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>6.0.0.Beta3</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
 </project>

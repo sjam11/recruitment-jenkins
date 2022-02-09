@@ -15,8 +15,6 @@ import se.kth.iv1201.project.repository.RoleRepository;
 @Service
 @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
 public class UserService {
-
-    UserService(){}
     
     @Autowired
     private UserRepository userRepository;
@@ -24,28 +22,28 @@ public class UserService {
     private RoleRepository roleRepository;
 
     public UserDTO findUserByUserId(int id) {
-        return userRepository.findPersonByPersonID(id);
+        return userRepository.findUserByUserId(id);
     }
 
     public UserDTO createUser(String firstName, String lastName, String pin, String email, 
                             String password, String roleName, String username) throws IllegalUserRegistrationException{
         
-       /* if(userRepository.findPersonByPIN(pin) != null){
+        if(userRepository.findUserByPIN(pin) != null){
             throw new IllegalUserRegistrationException("Person identification number: " + 
                         pin + " already exist."); 
-        }*/
+        }
 
-        if(userRepository.findPersonByUsername(username) != null){
+        if(userRepository.findUserByUsername(username) != null){
             throw new IllegalUserRegistrationException("Username: " + 
                         username + " is already in use."); 
         }
 
-        if(roleRepository.findRoleByName(roleName) != null){
+        if(roleRepository.findRoleByRoleName(roleName) != null){
             throw new IllegalUserRegistrationException("No matching role for: " + 
                         roleName + "in the system."); 
         }
 
-        int roleID = roleRepository.findRoleIDByName(roleName);
+        int roleID = roleRepository.findRoleIdByRoleName(roleName);
         User user = new User(firstName, lastName, pin, email, password, roleID, username);
         try{
             userRepository.save(user);
