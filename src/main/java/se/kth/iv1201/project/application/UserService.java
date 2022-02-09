@@ -53,4 +53,8 @@ public class UserService {
 
         return user;
     }
+
+    public UserDTO CheckUserAndRole(String email, String password) {
+        return null;
+    }
 }
