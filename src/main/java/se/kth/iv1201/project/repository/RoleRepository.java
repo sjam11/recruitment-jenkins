@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import se.kth.iv1201.project.domain.Role;
 
 @Repository
-@NoRepositoryBean
 @Transactional(propagation = Propagation.MANDATORY)
 public interface RoleRepository extends JpaRepository<Role, Integer>{
     int findRoleIdByRoleName(String roleName);    
