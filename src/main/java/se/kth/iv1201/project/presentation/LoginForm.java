@@ -13,22 +13,8 @@ import javax.validation.constraints.Size;
 
     private String  email;
     private String password;
-    private String username;
 
-    /**
-     * @return The name of the holderName of the account that will be created.
-     */
-    public String getUsername() {
-        return username;
-    }
 
-    /**
-     * @param holderName The name of the holderName of the account that will be
-     *               created.
-     */
-    public void setUsername(String newElem) {
-        username = newElem;
-    }
     /**
      * @return The name of the holderName of the account that will be created.
      */

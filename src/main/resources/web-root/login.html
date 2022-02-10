@@ -25,11 +25,6 @@
         <h3>Login</h3>
         <form th:action="@{/}" th:object="${loginForm}" method="post">
           <div class="form">
-            <label for="user-name">Username</label>:<input
-              type="text"
-              th:field="*{username}"
-              id="user-name"
-            />
             <label for="email">Email</label>:<input
               type="text"
               th:field="*{email}"
