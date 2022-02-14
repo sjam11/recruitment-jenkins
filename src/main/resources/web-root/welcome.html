@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">Welcome to the Recruitment application</h3>
+        <form th:action="@{/login}" method="head">
+          <input type="submit" value="Login" class="button" />
+        </form>
+        <form action="/signup" method="head">
+          <input type="submit" value="Signup" class="button" />
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
