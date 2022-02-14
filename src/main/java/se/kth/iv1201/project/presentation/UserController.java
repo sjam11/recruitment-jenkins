@@ -54,7 +54,7 @@ public class UserController {
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
     public String application(LoginForm loginForm, Model model){
-        currentUser = service.CheckUserAndRole(loginForm.getEmail(),loginForm.getPassword());
+        currentUser = service.CheckUserAndRole(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         return "application";
     }

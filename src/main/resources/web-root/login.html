@@ -25,10 +25,10 @@
         <h3>Login</h3>
         <form th:action="@{/login}" th:object="${loginForm}" method="post">
           <div class="form">
-            <label for="email">Email</label>:<input
+            <label for="username">Username</label>:<input
               type="text"
-              th:field="*{email}"
-              id="email"
+              th:field="*{username}"
+              id="username"
             />
             <label for="password">Password</label>:<input
               type="text"
