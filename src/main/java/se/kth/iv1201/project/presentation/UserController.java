@@ -51,9 +51,10 @@ public class UserController {
      * @param loginForm holds the information the user input in the login view.
      * @param model refers to the interface model that is sent to the html view application 
      * @return String is the html name of the view that is loaded.
+     * @throws IllegalUserRegistrationException
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
-    public String application(LoginForm loginForm, Model model){
+    public String application(LoginForm loginForm, Model model) throws IllegalUserRegistrationException{
         currentUser = service.CheckUserAndRole(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         return "application";

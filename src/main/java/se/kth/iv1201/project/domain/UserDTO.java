@@ -13,7 +13,7 @@ public interface UserDTO {
 
     String getPassword();
 
-    int roleID();
+    int getRoleID();
 
     String getUsername();
 }

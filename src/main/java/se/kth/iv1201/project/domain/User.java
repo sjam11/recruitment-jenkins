@@ -132,7 +132,7 @@ public class User implements UserDTO{
         return password;
     }
 
-    public int roleID(){
+    public int getRoleID(){
         return roleID;
     }
 
