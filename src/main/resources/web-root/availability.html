@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">
+          <!-- Welcome <span th:text="*{currentUser.firstName}"></span> -->
+        </h3>
+
+        <div>
+          <div>
+            Availability:
+            <tr th:each="availability : ${currentAvailability}">
+              From:
+              <td th:text="${availability.key}"></td>
+              To:
+              <td th:text="${availability.value}"></td>
+            </tr>
+          </div>
+          <form
+            th:action="@{/availability}"
+            th:object="${availabilityForm}"
+            method="post"
+          >
+            <label for="from-date">From date:</label>
+
+            <input
+              type="date"
+              th:value="*{fromDate}"
+              th:field="*{fromDate}"
+              id="from-date"
+            />
+
+            <label for="to-date">To date:</label>
+
+            <input
+              type="date"
+              th:value="*{toDate}"
+              th:field="*{toDate}"
+              id="to-date"
+            />
+
+            <p class="submit">
+              <input class="button" type="submit" name="next" value="Next" />
+            </p>
+            <p class="submit">
+              <input class="button" type="submit" name="add" value="Add" />
+            </p>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

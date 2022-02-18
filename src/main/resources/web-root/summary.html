@@ -28,6 +28,13 @@
           <td th:text="${expertise.key}"></td>
           <td th:text="${expertise.value}"></td>
         </tr>
+        Availability:
+        <tr th:each="availability : ${allAvailability}">
+          From:
+          <td th:text="${availability.key}"></td>
+          to:
+          <td th:text="${availability.value}"></td>
+        </tr>
         <form th:action="@{/summary}" method="post">
           <input type="submit" value="Submit" class="button" />
         </form>

@@ -37,6 +37,7 @@ public class UserController {
         private UserDTO currentUser;
         private CompetenceProfileDTO currentApplication;
         private HashMap<String,BigDecimal> addedExpertise = new HashMap<String,BigDecimal>();
+        private HashMap<Date, Date> addedAvailability = new HashMap<Date,Date>();
 
 
 
@@ -109,10 +110,9 @@ public class UserController {
 
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/application", method = RequestMethod.POST, params = "next")  
-    public String confirmCompetence(PositionForm positionForm, Model model) throws IllegalUserRegistrationException{
+    public String confirmCompetence(PositionForm positionForm, AvailabilityForm availabilityForm ,Model model) throws IllegalUserRegistrationException{
         addedExpertise.put(positionForm.getExpertise(), positionForm.getYears());
-        model.addAttribute("allExpertise", addedExpertise);
-        return "summary";
+        return "availability";
     }
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/application", method = RequestMethod.POST, params = "add")  
@@ -122,18 +122,32 @@ public class UserController {
         positionForm.setExpertise("ticket");
         positionForm.setYears(null);
         model.addAttribute("currentUser", currentUser);
-
         model.addAttribute("currentExpertise",addedExpertise);
         return "application";
+    }
+
+    @RequestMapping(value=DEFAULT_PAGE_URL+"/availability", method = RequestMethod.POST, params = "next")  
+    public String confirmAvailability(AvailabilityForm availabilityForm, Model model) throws IllegalUserRegistrationException{
+        addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate());
+        model.addAttribute("allExpertise", addedExpertise);
+        model.addAttribute("allAvailability", addedAvailability);
+        return "summary";
+    }
+
+    @RequestMapping(value=DEFAULT_PAGE_URL+"/availability", method = RequestMethod.POST, params = "add")  
+    public String addAvailability(AvailabilityForm availabilityForm,Model model) throws IllegalUserRegistrationException{
+        addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate());
+        model.addAttribute("currentAvailability",addedAvailability);
+        return "availability";
     }
 
     @PostMapping("/summary")
     public String confirm(Model model) throws IllegalUserRegistrationException{
         for (HashMap.Entry<String, BigDecimal> entry : addedExpertise.entrySet()) {
-            int competenceID = service.getCompetenceID(entry.getKey());
-            BigDecimal years = entry.getValue();
-            CompetenceProfile competenceProfile = new CompetenceProfile(currentUser.getPersonID(), competenceID, years);
-            currentApplication = service.addCompetence(competenceProfile);
+            service.createCompetenceProfile(currentUser,entry.getKey(),entry.getValue());
+        }
+        for (HashMap.Entry<Date,Date> entry : addedAvailability.entrySet()) {
+            service.addAvailability(currentUser,entry.getKey(),entry.getValue());
         }
         return "welcome";
      }
