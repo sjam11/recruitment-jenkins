@@ -23,8 +23,44 @@
     <main layout:fragment="content">
       <div class="outer">
         <h3 class="banner">
-          Welcome <span th:text="*{currentUser.username}"></span>
+          Welcome <span th:text="*{currentUser.firstName}"></span>
         </h3>
+
+        <div>
+          <div>
+            Expertise:
+            <tr th:each="expertise : ${currentExpertise}">
+              <td th:text="${expertise.key}"></td>
+              <td th:text="${expertise.value}"></td>
+            </tr>
+          </div>
+          <form
+            th:action="@{/application}"
+            th:object="${positionForm}"
+            method="post"
+          >
+            <div>
+              <label for="expertise">Area of expertise:</label>
+              <select th:field="*{expertise}">
+                <option th:value="tickets" >Tickets</option>
+                <option th:value="lotteries" >Lotteries</option>
+                <option
+                  th:value="roller-coaster"
+                >Roller coaster</option>
+              </select>
+              <label for="years">Years</label>:<input
+                type="text"
+                th:field="*{years}"
+                id="years"
+              />
+              <p class="submit">
+                <input class="button" type="submit" name="next"value="Next" />
+              </p>
+              <p class="submit">
+                <input class="button" type="submit" name="add" value="Add" />
+              </p>
+          </form>
+        </div>
       </div>
     </main>
   </body>

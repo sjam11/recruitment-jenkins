@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">Confirm application</h3>
+        Expertise:
+        <tr th:each="expertise : ${allExpertise}">
+          <td th:text="${expertise.key}"></td>
+          <td th:text="${expertise.value}"></td>
+        </tr>
+        <form th:action="@{/summary}" method="post">
+          <input type="submit" value="Submit" class="button" />
+        </form>
+        <form th:action="@{/}" method="get">
+          <input type="submit" value="Cancel" class="button" />
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
