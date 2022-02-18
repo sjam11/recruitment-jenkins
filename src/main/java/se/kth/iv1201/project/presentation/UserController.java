@@ -55,7 +55,7 @@ public class UserController {
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
     public String application(LoginForm loginForm, Model model) throws IllegalUserRegistrationException{
-        currentUser = service.CheckUserAndRole(loginForm.getUsername(),loginForm.getPassword());
+        currentUser = service.CheckUser(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         return "application";
     }

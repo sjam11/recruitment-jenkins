@@ -90,11 +90,11 @@ public class UserService {
      * @return the user if its registered.
      * @throws IllegalUserRegistrationException
      */
-    public UserDTO CheckUserAndRole(String email, String password) throws IllegalUserRegistrationException {
-        User user = userRepository.findPersonByEmail(email);
+    public UserDTO CheckUser(String username, String password) throws IllegalUserRegistrationException {
+        User user = userRepository.findPersonByUsername(username);
         if(user == null){
-            throw new IllegalUserRegistrationException("The email: " + 
-            email + "does not have a account."); 
+            throw new IllegalUserRegistrationException("The username: " + 
+            username + "does not have a account."); 
         }
 
         if(user.getPassword() != MD5(password)){
@@ -126,12 +126,16 @@ public class UserService {
      * @param yearsOfExperience the years of experience. 
      * @return the comptence profile
      */
-    public CompetenceProfileDTO createCompetenceProfile(User user, String competenceName, BigDecimal yearsOfExperience){
+    public void createCompetenceProfile(User user, String competenceName, BigDecimal yearsOfExperience) throws IllegalUserRegistrationException{
         int competenceID = competenceRepository.getCompetenceID(competenceName);
         int personID = user.getPersonID();
         CompetenceProfile competenceProfile = new CompetenceProfile(personID, competenceID, yearsOfExperience);
 
-        return competenceProfile;
+        try{
+            competenceProfileRepository.saveCompetenceProfile(competenceProfile);
+        } catch(Exception e){
+            throw new IllegalUserRegistrationException("Could not save user in database");
+        }
     }
 
     private static String MD5(String s) {
