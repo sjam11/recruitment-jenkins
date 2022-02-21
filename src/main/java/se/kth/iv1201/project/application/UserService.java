@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import se.kth.iv1201.project.domain.Availability;
 import se.kth.iv1201.project.domain.CompetenceDTO;
 import se.kth.iv1201.project.domain.CompetenceProfile;
 import se.kth.iv1201.project.domain.CompetenceProfileDTO;
@@ -134,7 +136,25 @@ public class UserService {
         try{
             competenceProfileRepository.saveCompetenceProfile(competenceProfile);
         } catch(Exception e){
-            throw new IllegalUserRegistrationException("Could not save user in database");
+            throw new IllegalUserRegistrationException("Could not save competence in database");
+        }
+    }
+
+    /**
+     * Creates a availibility period the user.
+     * @param user the user.
+     * @param fromDate available from date.
+     * @param toDate available to date.
+     * @throws IllegalUserRegistrationException
+     */
+    public void createAvailibilityPeriod(User user, Date fromDate, Date toDate) throws IllegalUserRegistrationException {
+        int personID = user.getPersonID();
+        Availability availability = new Availability(personID, fromDate, toDate);
+
+        try{
+            availabilityRepository.saveAvailability(availability);
+        } catch(Exception e){
+            throw new IllegalUserRegistrationException("Could not save availibility in database");
         }
     }
 
