@@ -2,24 +2,18 @@ package se.kth.iv1201.project.presentation;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import se.kth.iv1201.project.application.UserService;
-import se.kth.iv1201.project.domain.CompetenceProfile;
-import se.kth.iv1201.project.domain.CompetenceProfileDTO;
 import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
 import se.kth.iv1201.project.domain.UserDTO;
 
@@ -35,7 +29,6 @@ public class UserController {
         @Autowired
         private UserService service;
         private UserDTO currentUser;
-        private CompetenceProfileDTO currentApplication;
         private HashMap<String,BigDecimal> addedExpertise = new HashMap<String,BigDecimal>();
         private HashMap<Date, Date> addedAvailability = new HashMap<Date,Date>();
 
@@ -74,10 +67,11 @@ public class UserController {
      * @param loginForm holds the information the user input in the login view.
      * @param model refers to the interface model that is sent to the html view application 
      * @return String is the html name of the view that is loaded.
+     * @throws IllegalUserRegistrationException
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
-    public String submitLogin(LoginForm loginForm, PositionForm positionForm,Model model){
-        currentUser = service.CheckUserAndRole(loginForm.getUsername(),loginForm.getPassword());
+    public String submitLogin(LoginForm loginForm, PositionForm positionForm, Model model) throws IllegalUserRegistrationException{
+        currentUser = service.checkUser(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         return "application";
     }
@@ -95,7 +89,7 @@ public class UserController {
         currentUser = service.createUser(createUserForm.getFirstName(),createUserForm.getLastName(),createUserForm.getPersonNr(),createUserForm.getEmail(),createUserForm.getPassword(),roleName,createUserForm.getUsername());
         model.addAttribute("currentUser", currentUser);
         return "application";
-        }
+    }
 
     @GetMapping("/application") 
     public String application(PositionForm positionForm) {

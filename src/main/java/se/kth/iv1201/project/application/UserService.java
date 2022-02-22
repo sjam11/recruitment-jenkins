@@ -12,9 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.kth.iv1201.project.domain.Availability;
-import se.kth.iv1201.project.domain.CompetenceDTO;
 import se.kth.iv1201.project.domain.CompetenceProfile;
-import se.kth.iv1201.project.domain.CompetenceProfileDTO;
 import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
 import se.kth.iv1201.project.domain.User;
 import se.kth.iv1201.project.domain.UserDTO;
@@ -92,7 +90,7 @@ public class UserService {
      * @return the user if its registered.
      * @throws IllegalUserRegistrationException
      */
-    public UserDTO CheckUser(String username, String password) throws IllegalUserRegistrationException {
+    public UserDTO checkUser(String username, String password) throws IllegalUserRegistrationException {
         User user = userRepository.findPersonByUsername(username);
         if(user == null){
             throw new IllegalUserRegistrationException("The username: " + 
@@ -128,7 +126,7 @@ public class UserService {
      * @param yearsOfExperience the years of experience. 
      * @return the comptence profile
      */
-    public void createCompetenceProfile(User user, String competenceName, BigDecimal yearsOfExperience) throws IllegalUserRegistrationException{
+    public void addCompetence(UserDTO user, String competenceName, BigDecimal yearsOfExperience) throws IllegalUserRegistrationException{
         int competenceID = competenceRepository.getCompetenceID(competenceName);
         int personID = user.getPersonID();
         CompetenceProfile competenceProfile = new CompetenceProfile(personID, competenceID, yearsOfExperience);
@@ -147,7 +145,7 @@ public class UserService {
      * @param toDate available to date.
      * @throws IllegalUserRegistrationException
      */
-    public void createAvailibilityPeriod(User user, Date fromDate, Date toDate) throws IllegalUserRegistrationException {
+    public void addAvailability(UserDTO user, Date fromDate, Date toDate) throws IllegalUserRegistrationException {
         int personID = user.getPersonID();
         Availability availability = new Availability(personID, fromDate, toDate);
 

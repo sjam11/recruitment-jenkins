@@ -1,9 +1,6 @@
 package se.kth.iv1201.project.repository;
 
 import org.springframework.transaction.annotation.*;
-
-import java.math.BigDecimal;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
