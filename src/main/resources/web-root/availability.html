@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <div class="outer-child">
+          <h3 class="banner">Add Availability</h3>
+          <div>
+            <form
+              th:action="@{/availability}"
+              th:object="${availabilityForm}"
+              method="post"
+            >
+              <div>
+                <label for="from-date">From date:</label>
+
+                <input
+                  type="date"
+                  th:value="*{fromDate}"
+                  th:field="*{fromDate}"
+                  id="from-date"
+                />
+              </div>
+
+              <div>
+                <label for="to-date">To date:</label>
+
+                <input
+                  type="date"
+                  th:value="*{toDate}"
+                  th:field="*{toDate}"
+                  id="to-date"
+                />
+              </div>
+
+              <p class="submit">
+                <input class="button" type="submit" name="add" value="Add" />
+              </p>
+              <p class="submit">
+                <input class="button" type="submit" name="next" value="Next" />
+              </p>
+            </form>
+          </div>
+        </div>
+        <div class="outer-child">
+          <h4>Current Availability:</h4>
+          <div>
+            <tr th:each="availability : ${currentAvailability}">
+              <div>
+                From:
+                <td th:text="${availability.key}"></td>
+                To:
+                <td th:text="${availability.value}"></td>
+              </div>
+            </tr>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

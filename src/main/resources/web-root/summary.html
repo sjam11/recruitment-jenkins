@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">Confirm application</h3>
+        <div>
+          <h4>Expertise:</h4>
+          <tr th:each="expertise : ${allExpertise}">
+            <div>
+              <td th:text="${expertise.key}"></td>
+              <td th:text="${expertise.value}"></td>
+            </div>
+          </tr>
+        </div>
+        <div>
+          <h4>Availability:</h4>
+          <tr th:each="availability : ${allAvailability}">
+            <div>
+              From:
+              <td th:text="${availability.key}"></td>
+              to:
+              <td th:text="${availability.value}"></td>
+            </div>
+          </tr>
+        </div>
+
+        <form th:action="@{/summary}" method="post">
+          <input type="submit" value="Submit" class="button" />
+        </form>
+        <form th:action="@{/}" method="get">
+          <input type="submit" value="Cancel" class="button" />
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

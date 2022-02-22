@@ -21,7 +21,7 @@
   </head>
   <body>
     <main layout:fragment="content">
-      <section class="outer">
+      <div class="outer">
         <h3>Login</h3>
         <form th:action="@{/login}" th:object="${loginForm}" method="post">
           <div class="form">
@@ -43,7 +43,7 @@
             <input class="button" type="submit" value="Login" />
           </p>
         </form>
-      </section>
+      </div>
     </main>
   </body>
 </html>

@@ -33,17 +33,30 @@ footer {
 }
 .outer {
   padding: 2em;
+  border-radius: 2em;
+  background-color: #ffe8d6;
+  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 2em;
-  background-color: #ffe8d6;
   transform: translate(-50%, -50%);
 }
-.outer h3 {
+
+.outer-child {
+  text-align: center;
+  background-color: #ffe8d6;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.outer h3,
+.outer-child h3,
+.outer-child h4 {
   text-align: center;
   padding: 0 0 20px 0;
   border-bottom: 1px solid gray;
+  margin-bottom: 10px;
 }
 .outer form {
   padding: 0 40px;
@@ -116,4 +129,24 @@ input[type="text"] {
   padding: 6px 10px;
   margin: 4px 0;
   box-sizing: border-box;
+}
+select {
+  border-radius: 10px;
+  padding: 6px 10px;
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+#years {
+  border-radius: 10px;
+  width: 3rem;
+  padding: 6px 10px;
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+
+.confirm {
+  background-color: #a5a58d;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 20px;
 }
