@@ -13,9 +13,9 @@ import se.kth.iv1201.project.domain.CompetenceProfile;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface CompetenceProfileRepository extends JpaRepository<CompetenceProfile, Integer>{
 
-    CompetenceProfile saveCompetenceProfile(CompetenceProfile competenceProfile);
-
     CompetenceProfile findCompetenceProfileByPersonID(int id);
 
+    @Override
+    <S extends CompetenceProfile> S save(S competenceProfile);
 
 }

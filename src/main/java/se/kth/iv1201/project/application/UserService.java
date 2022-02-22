@@ -132,7 +132,7 @@ public class UserService {
         CompetenceProfile competenceProfile = new CompetenceProfile(personID, competenceID, yearsOfExperience);
 
         try{
-            competenceProfileRepository.saveCompetenceProfile(competenceProfile);
+            competenceProfileRepository.save(competenceProfile);
         } catch(Exception e){
             throw new IllegalUserRegistrationException("Could not save competence in database");
         }
@@ -150,7 +150,7 @@ public class UserService {
         Availability availability = new Availability(personID, fromDate, toDate);
 
         try{
-            availabilityRepository.saveAvailability(availability);
+            availabilityRepository.save(availability);
         } catch(Exception e){
             throw new IllegalUserRegistrationException("Could not save availibility in database");
         }

@@ -13,5 +13,6 @@ import se.kth.iv1201.project.domain.Availability;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface AvailabilityRepository extends JpaRepository<Availability, Integer>{
 
-    Availability saveAvailability(Availability availability);
+    @Override
+    <S extends Availability> S save(S availability);
 }
