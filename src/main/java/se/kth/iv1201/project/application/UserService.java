@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.kth.iv1201.project.domain.Availability;
+import se.kth.iv1201.project.domain.Competence;
 import se.kth.iv1201.project.domain.CompetenceProfile;
 import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
+import se.kth.iv1201.project.domain.Role;
 import se.kth.iv1201.project.domain.User;
 import se.kth.iv1201.project.domain.UserDTO;
 import se.kth.iv1201.project.repository.UserRepository;
@@ -57,6 +59,8 @@ public class UserService {
     public UserDTO createUser(String firstName, String lastName, String pin, String email, 
                             String password, String roleName, String username) throws IllegalUserRegistrationException{
         
+        Role role = roleRepository.findRoleByName(roleName);
+
         if(userRepository.findPersonByPin(pin) != null){
             throw new IllegalUserRegistrationException("Person identification number: " + 
                         pin + " already exist."); 
@@ -67,13 +71,12 @@ public class UserService {
                         username + " is already in use."); 
         }
 
-        if(roleRepository.findRoleByName(roleName) != null){
+        if(role.getName() == null){
             throw new IllegalUserRegistrationException("No matching role for: " + 
                         roleName + "in the system."); 
         }
 
-        int roleID = roleRepository.findRoleIDByName(roleName);
-        User user = new User(firstName, lastName, pin, email, MD5(password), roleID, username);
+        User user = new User(firstName, lastName, pin, email, MD5(password), role.getRoleID(), username);
         try{
             userRepository.save(user);
         } catch(Exception e){
@@ -96,8 +99,8 @@ public class UserService {
             throw new IllegalUserRegistrationException("The username: " + 
             username + "does not have a account."); 
         }
-
-        if(user.getPassword() != MD5(password)){
+        
+        if(!MD5(password).equals(user.getPassword())){
             throw new IllegalUserRegistrationException("Incorrect password.");
         }
 
@@ -127,10 +130,12 @@ public class UserService {
      * @return the comptence profile
      */
     public void addCompetence(UserDTO user, String competenceName, BigDecimal yearsOfExperience) throws IllegalUserRegistrationException{
-        int competenceID = competenceRepository.getCompetenceID(competenceName);
-        int personID = user.getPersonID();
-        CompetenceProfile competenceProfile = new CompetenceProfile(personID, competenceID, yearsOfExperience);
 
+        competenceName = competenceName.replaceAll("-", " ");
+        Competence competence = competenceRepository.findCompetenceByName(competenceName);
+        int personID = user.getPersonID();
+        CompetenceProfile competenceProfile = new CompetenceProfile(personID, competence.getCompetenceID(), yearsOfExperience);
+        
         try{
             competenceProfileRepository.save(competenceProfile);
         } catch(Exception e){

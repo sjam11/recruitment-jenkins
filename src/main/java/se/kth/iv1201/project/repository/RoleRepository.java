@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import se.kth.iv1201.project.domain.Role;
 
+/**
+ * Contains all database access concerning the Role of the User.
+ */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface RoleRepository extends JpaRepository<Role, Integer>{

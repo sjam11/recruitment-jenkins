@@ -85,7 +85,7 @@ public class UserController {
      */
     @PostMapping(DEFAULT_PAGE_URL+SIGNUP_PAGE_URL)  
     public String submitSignup(CreateUserForm createUserForm, PositionForm positionForm,Model model) throws IllegalUserRegistrationException{
-        String roleName = "Applicant";
+        String roleName = "applicant";
         currentUser = service.createUser(createUserForm.getFirstName(),createUserForm.getLastName(),createUserForm.getPersonNr(),createUserForm.getEmail(),createUserForm.getPassword(),roleName,createUserForm.getUsername());
         model.addAttribute("currentUser", currentUser);
         return "application";
@@ -114,7 +114,7 @@ public class UserController {
     public String addCompetence(PositionForm positionForm,Model model) throws IllegalUserRegistrationException{
         addedExpertise.put(positionForm.getExpertise(), positionForm.getYears());
         //Resets the fields
-        positionForm.setExpertise("ticket");
+        positionForm.setExpertise("ticket-sales");
         positionForm.setYears(null);
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("currentExpertise",addedExpertise);
