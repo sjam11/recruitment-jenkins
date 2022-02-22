@@ -22,50 +22,60 @@
   <body>
     <main layout:fragment="content">
       <div class="outer">
-        <h3 class="banner">
-          <!-- Welcome <span th:text="*{currentUser.firstName}"></span> -->
-        </h3>
-
-        <div>
+        <div class="outer-child">
+          <h3 class="banner">
+            Add Availability
+            <!-- Welcome <span th:text="*{currentUser.firstName}"></span> -->
+          </h3>
           <div>
-            Availability:
+            <form
+              th:action="@{/availability}"
+              th:object="${availabilityForm}"
+              method="post"
+            >
+              <div>
+                <label for="from-date">From date:</label>
+
+                <input
+                  type="date"
+                  th:value="*{fromDate}"
+                  th:field="*{fromDate}"
+                  id="from-date"
+                />
+              </div>
+
+              <div>
+                <label for="to-date">To date:</label>
+
+                <input
+                  type="date"
+                  th:value="*{toDate}"
+                  th:field="*{toDate}"
+                  id="to-date"
+                />
+              </div>
+
+              <p class="submit">
+                <input class="button" type="submit" name="add" value="Add" />
+              </p>
+              <p class="submit">
+                <input class="button" type="submit" name="next" value="Next" />
+              </p>
+            </form>
+          </div>
+        </div>
+        <div class="outer-child">
+          <h4>Current Availability:</h4>
+          <div>
             <tr th:each="availability : ${currentAvailability}">
-              From:
-              <td th:text="${availability.key}"></td>
-              To:
-              <td th:text="${availability.value}"></td>
+              <div>
+                From:
+                <td th:text="${availability.key}"></td>
+                To:
+                <td th:text="${availability.value}"></td>
+              </div>
             </tr>
           </div>
-          <form
-            th:action="@{/availability}"
-            th:object="${availabilityForm}"
-            method="post"
-          >
-            <label for="from-date">From date:</label>
-
-            <input
-              type="date"
-              th:value="*{fromDate}"
-              th:field="*{fromDate}"
-              id="from-date"
-            />
-
-            <label for="to-date">To date:</label>
-
-            <input
-              type="date"
-              th:value="*{toDate}"
-              th:field="*{toDate}"
-              id="to-date"
-            />
-
-            <p class="submit">
-              <input class="button" type="submit" name="next" value="Next" />
-            </p>
-            <p class="submit">
-              <input class="button" type="submit" name="add" value="Add" />
-            </p>
-          </form>
         </div>
       </div>
     </main>

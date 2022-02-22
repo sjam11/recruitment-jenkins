@@ -23,18 +23,27 @@
     <main layout:fragment="content">
       <div class="outer">
         <h3 class="banner">Confirm application</h3>
-        Expertise:
-        <tr th:each="expertise : ${allExpertise}">
-          <td th:text="${expertise.key}"></td>
-          <td th:text="${expertise.value}"></td>
-        </tr>
-        Availability:
-        <tr th:each="availability : ${allAvailability}">
-          From:
-          <td th:text="${availability.key}"></td>
-          to:
-          <td th:text="${availability.value}"></td>
-        </tr>
+        <div>
+          <h4>Expertise:</h4>
+          <tr th:each="expertise : ${allExpertise}">
+            <div>
+              <td th:text="${expertise.key}"></td>
+              <td th:text="${expertise.value}"></td>
+            </div>
+          </tr>
+        </div>
+        <div>
+          <h4>Availability:</h4>
+          <tr th:each="availability : ${allAvailability}">
+            <div>
+              From:
+              <td th:text="${availability.key}"></td>
+              to:
+              <td th:text="${availability.value}"></td>
+            </div>
+          </tr>
+        </div>
+
         <form th:action="@{/summary}" method="post">
           <input type="submit" value="Submit" class="button" />
         </form>

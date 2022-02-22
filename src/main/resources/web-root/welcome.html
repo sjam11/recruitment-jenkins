@@ -22,6 +22,9 @@
   <body>
     <main layout:fragment="content">
       <div class="outer">
+        <span class="confirm" th:if="${confirmMsg == 'added'}"
+          >Application has been added</span
+        >
         <h3 class="banner">Welcome to the Recruitment application</h3>
         <form th:action="@{/login}" method="head">
           <input type="submit" value="Login" class="button" />

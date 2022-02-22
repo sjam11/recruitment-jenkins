@@ -99,19 +99,20 @@ public class UserController {
 
     @GetMapping("/application") 
     public String application(PositionForm positionForm) {
-        return  "application";
+        return  "welcome";
     } 
 
 
     @GetMapping("/summary")
     public String summary(){
-        return "summary";
+        return "welcome";
     }
 
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/application", method = RequestMethod.POST, params = "next")  
     public String confirmCompetence(PositionForm positionForm, AvailabilityForm availabilityForm ,Model model) throws IllegalUserRegistrationException{
-        addedExpertise.put(positionForm.getExpertise(), positionForm.getYears());
+        //addedExpertise.put(positionForm.getExpertise(), positionForm.getYears()); Remove comment if current expertise should be added when going to next page.
+        // Add check if addedExpertise is empty. 
         return "availability";
     }
 
@@ -128,7 +129,7 @@ public class UserController {
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/availability", method = RequestMethod.POST, params = "next")  
     public String confirmAvailability(AvailabilityForm availabilityForm, Model model) throws IllegalUserRegistrationException{
-        addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate());
+        // addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate()); Remove comment if current availability should be added when going to next page.
         model.addAttribute("allExpertise", addedExpertise);
         model.addAttribute("allAvailability", addedAvailability);
         return "summary";
@@ -144,11 +145,13 @@ public class UserController {
     @PostMapping("/summary")
     public String confirm(Model model) throws IllegalUserRegistrationException{
         for (HashMap.Entry<String, BigDecimal> entry : addedExpertise.entrySet()) {
-            service.createCompetenceProfile(currentUser,entry.getKey(),entry.getValue());
+            service.addCompetence(currentUser,entry.getKey(),entry.getValue());
         }
-        for (HashMap.Entry<Date,Date> entry : addedAvailability.entrySet()) {
-            service.addAvailability(currentUser,entry.getKey(),entry.getValue());
+        for (HashMap.Entry<Date,Date> entry : addedAvailability.entrySet()) {  
+          service.addAvailability(currentUser,entry.getKey(),entry.getValue());
         }
+        //Add confirmation message
+        model.addAttribute("confirmMsg", "added");
         return "welcome";
      }
 }
