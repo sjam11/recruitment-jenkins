@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>currentApplicationlication</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">Detailed view</h3>
+        <div>
+            <ul>                
+                <li th:text="*{currentApplication.person.firstName}"></li>
+                <li th:text="${currentApplication.person.lastName}"></li>
+                <li th:text="${currentApplication.person.email}"></li>
+                Expertise:
+                <ul th:each="comp: ${currentApplication.competence}">
+                      <li th:text="${comp.key + ' '+comp.value}"></li>
+                </ul>
+                Availability:
+                  <ul th:each="availability : ${currentApplication.getAvailability()}">
+                      <li th:text="${'From: ' + availability.key + ' To: '+ availability.value}"></li>
+                  </ul>
+                <form method="POST" th:action="@{/statusChange}">
+                  <button type="submit" name="Accept" value="accept" class="button">Accept</button>
+                  <button type="submit" name="Reject" value="reject" class="button">Reject</button>
+                  <button type="submit" name="Back" value="back" class="button">Back</button>
+                </form> 
+              </ul>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
