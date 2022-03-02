@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,11 +165,31 @@ public class UserService {
         }
     }
 
+    /**
+     * @return all of the availability period and competence for all applicants.
+     */
     public ArrayList<App> getApplications(){
         ArrayList<App> applications = new ArrayList<App>();
-        HashMap<String, String> availability;
+        App app;
+        HashMap<Date, Date> availability;
         HashMap<String, Integer> competence;
-        //User allUsers = userRepository.get
+        List<User> allUsers = userRepository.findAllByRoleId(2);
+        
+        for(User user : allUsers){
+            int userID = user.getPersonID();
+            List<Availability> allAvailability = availabilityRepository.findAllByPersonId(userID);
+            List<Competence> allCompetence = competenceRepository.findAllByPersonId(userID);
+            for(Availability a : allAvailability){
+                availability.put(a.getFromDate(), a.getToDate());
+            }
+            
+            for(Competence c : allCompetence){
+                competence.put(c.getName(), c.getCompetenceID());
+            }
+
+            app = new App(user, competence, availability);
+            applications.add(app);
+        }
 
         return applications;
     }
