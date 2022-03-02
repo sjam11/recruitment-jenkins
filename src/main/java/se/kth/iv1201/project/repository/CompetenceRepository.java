@@ -2,8 +2,6 @@ package se.kth.iv1201.project.repository;
 
 import org.springframework.transaction.annotation.*;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,11 +15,11 @@ import se.kth.iv1201.project.domain.Competence;
 public interface CompetenceRepository extends JpaRepository<Competence, Integer>{
 
     /**
-     * Returns all competence for a specific person
-     * @param personID
-     * @return list of competence for person
+     * Returns the name of a competence.
+     * @param competence_id the id of the competence, to get the name of
+     * @return name of competences
      */
-    List<Competence> findAllByPersonID(int personID);
+    String getCompetenceNameByID(int competence_id);
 
     /**
      * Returns competence from competence name
