@@ -172,19 +172,20 @@ public class UserService {
         ArrayList<App> applications = new ArrayList<App>();
         App app;
         HashMap<Date, Date> availability = new HashMap<>();
-        HashMap<String, Integer> competence = new HashMap<>();
+        HashMap<String, BigDecimal> competence = new HashMap<>();
         List<User> allUsers = userRepository.findAllByRoleID(2);
         
         for(User user : allUsers){
             int userID = user.getPersonID();
             List<Availability> allAvailability = availabilityRepository.findAllByPersonID(userID);
-            List<Competence> allCompetence = competenceRepository.findAllByPersonID(userID);
+            List<CompetenceProfile> allCompetence = competenceProfileRepository.findAllByPersonID(userID);
             for(Availability a : allAvailability){
                 availability.put(a.getFromDate(), a.getToDate());
             }
             
-            for(Competence c : allCompetence){
-                competence.put(c.getName(), c.getCompetenceID());
+            for(CompetenceProfile c : allCompetence){
+                String competenceName = competenceRepository.getCompetenceNameByID(c.getCompetenceID());
+                competence.put(competenceName, c.getYearOfExperience());
             }
 
             app = new App(user, competence, availability);

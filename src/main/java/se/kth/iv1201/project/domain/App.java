@@ -1,5 +1,6 @@
 package se.kth.iv1201.project.domain;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashMap;
 
@@ -7,7 +8,7 @@ public class App {
 
     private User person;
     private HashMap<Date, Date> availability;
-    private HashMap<String, Integer> competence;
+    private HashMap<String, BigDecimal> competence;
 
     /**
      * Creates an instance of application for a user with their competence and availibility
@@ -15,7 +16,7 @@ public class App {
      * @param competence their competence.
      * @param availability their availability period.
      */
-    public App(User person, HashMap<String,Integer> competence, HashMap<Date,Date> availability){
+    public App(User person, HashMap<String,BigDecimal> competence, HashMap<Date,Date> availability){
         this.person = person;
         this.competence = competence;
         this.availability = availability;
@@ -28,11 +29,11 @@ public class App {
         this.person = person;
     }
 
-    public void setCompence(HashMap<String,Integer> competence){
+    public void setCompence(HashMap<String,BigDecimal> competence){
         this.competence = competence;
     }
 
-    public HashMap<String,Integer> getCompetence(){
+    public HashMap<String,BigDecimal> getCompetence(){
         return competence;
     }
     public HashMap<Date,Date> getAvailability(){
