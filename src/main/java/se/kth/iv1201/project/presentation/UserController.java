@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import se.kth.iv1201.project.application.UserService;
-import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
+import se.kth.iv1201.project.application.ApplicationService;
+import se.kth.iv1201.project.domain.IllegalApplicationException;
 import se.kth.iv1201.project.domain.UserDTO;
 
 
@@ -27,7 +27,7 @@ public class UserController {
         static final String HOME_PAGE_URL = "application";
         static final String SIGNUP_PAGE_URL = "signup";
         @Autowired
-        private UserService service;
+        private ApplicationService service;
         private UserDTO currentUser;
         private HashMap<String,BigDecimal> addedExpertise = new HashMap<String,BigDecimal>();
         private HashMap<Date, Date> addedAvailability = new HashMap<Date,Date>();
@@ -70,7 +70,7 @@ public class UserController {
      * @throws IllegalUserRegistrationException
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
-    public String submitLogin(LoginForm loginForm, PositionForm positionForm, Model model) throws IllegalUserRegistrationException{
+    public String submitLogin(LoginForm loginForm, PositionForm positionForm, Model model) throws IllegalApplicationException{
         currentUser = service.checkUser(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         return "application";
@@ -84,7 +84,7 @@ public class UserController {
      * @throws IllegalUserRegistrationException
      */
     @PostMapping(DEFAULT_PAGE_URL+SIGNUP_PAGE_URL)  
-    public String submitSignup(CreateUserForm createUserForm, PositionForm positionForm,Model model) throws IllegalUserRegistrationException{
+    public String submitSignup(CreateUserForm createUserForm, PositionForm positionForm,Model model) throws IllegalApplicationException{
         String roleName = "applicant";
         currentUser = service.createUser(createUserForm.getFirstName(),createUserForm.getLastName(),createUserForm.getPersonNr(),createUserForm.getEmail(),createUserForm.getPassword(),roleName,createUserForm.getUsername());
         model.addAttribute("currentUser", currentUser);
@@ -104,14 +104,14 @@ public class UserController {
 
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/application", method = RequestMethod.POST, params = "next")  
-    public String confirmCompetence(PositionForm positionForm, AvailabilityForm availabilityForm ,Model model) throws IllegalUserRegistrationException{
+    public String confirmCompetence(PositionForm positionForm, AvailabilityForm availabilityForm ,Model model) throws IllegalApplicationException{
         //addedExpertise.put(positionForm.getExpertise(), positionForm.getYears()); Remove comment if current expertise should be added when going to next page.
         // Add check if addedExpertise is empty. 
         return "availability";
     }
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/application", method = RequestMethod.POST, params = "add")  
-    public String addCompetence(PositionForm positionForm,Model model) throws IllegalUserRegistrationException{
+    public String addCompetence(PositionForm positionForm,Model model) throws IllegalApplicationException{
         addedExpertise.put(positionForm.getExpertise(), positionForm.getYears());
         //Resets the fields
         positionForm.setExpertise("ticket-sales");
@@ -122,7 +122,7 @@ public class UserController {
     }
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/availability", method = RequestMethod.POST, params = "next")  
-    public String confirmAvailability(AvailabilityForm availabilityForm, Model model) throws IllegalUserRegistrationException{
+    public String confirmAvailability(AvailabilityForm availabilityForm, Model model) throws IllegalApplicationException{
         // addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate()); Remove comment if current availability should be added when going to next page.
         model.addAttribute("allExpertise", addedExpertise);
         model.addAttribute("allAvailability", addedAvailability);
@@ -130,14 +130,14 @@ public class UserController {
     }
 
     @RequestMapping(value=DEFAULT_PAGE_URL+"/availability", method = RequestMethod.POST, params = "add")  
-    public String addAvailability(AvailabilityForm availabilityForm,Model model) throws IllegalUserRegistrationException{
+    public String addAvailability(AvailabilityForm availabilityForm,Model model) throws IllegalApplicationException{
         addedAvailability.put(availabilityForm.getFromDate(), availabilityForm.getToDate());
         model.addAttribute("currentAvailability",addedAvailability);
         return "availability";
     }
 
     @PostMapping("/summary")
-    public String confirm(Model model) throws IllegalUserRegistrationException{
+    public String confirm(Model model) throws IllegalApplicationException{
         for (HashMap.Entry<String, BigDecimal> entry : addedExpertise.entrySet()) {
             service.addCompetence(currentUser,entry.getKey(),entry.getValue());
         }

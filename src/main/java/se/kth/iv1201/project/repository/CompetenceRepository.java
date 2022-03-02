@@ -19,7 +19,7 @@ public interface CompetenceRepository extends JpaRepository<Competence, Integer>
      * @param competence_id the id of the competence, to get the name of
      * @return name of competences
      */
-    String getCompetenceNameByID(int competence_id);
+    String getCompetenceNameByCompetenceID(int competence_id);
 
     /**
      * Returns competence from competence name
