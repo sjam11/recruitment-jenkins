@@ -5,12 +5,15 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import se.kth.iv1201.project.domain.App;
 import se.kth.iv1201.project.domain.Availability;
 import se.kth.iv1201.project.domain.Competence;
 import se.kth.iv1201.project.domain.CompetenceProfile;
@@ -159,6 +162,15 @@ public class UserService {
         } catch(Exception e){
             throw new IllegalUserRegistrationException("Could not save availibility in database");
         }
+    }
+
+    public ArrayList<App> getApplications(){
+        ArrayList<App> applications = new ArrayList<App>();
+        HashMap<String, String> availability;
+        HashMap<String, Integer> competence;
+        //User allUsers = userRepository.get
+
+        return applications;
     }
 
     private static String MD5(String s) {

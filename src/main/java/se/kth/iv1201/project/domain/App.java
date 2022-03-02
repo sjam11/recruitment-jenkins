@@ -8,6 +8,12 @@ public class App {
     private HashMap<String, String> availability;
     private HashMap<String, Integer> competence;
 
+    /**
+     * 
+     * @param person
+     * @param competence
+     * @param availability
+     */
     public App(User person, HashMap<String,Integer> competence, HashMap<String,String> availability){
         this.person = person;
         this.competence = competence;
