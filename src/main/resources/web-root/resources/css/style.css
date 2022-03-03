@@ -123,7 +123,8 @@ a {
   margin: 10px 0;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
   border-radius: 10px;
   width: 100%;
   padding: 6px 10px;
@@ -149,4 +150,68 @@ select {
   border-radius: 20px;
   padding: 5px;
   margin: 20px;
+}
+
+#grid-button {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  width: 100%;
+  height: 40px;
+  border: 1px solid;
+  background: #a5a58d;
+  border-radius: 10px;
+}
+
+#page-button {
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  border: 1px solid;
+  background: #a5a58d;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.app-loop {
+  text-align: center;
+  display: inline-grid;
+  gap: 5px;
+}
+
+.app-button {
+  margin: 5px;
+  text-align: center;
+  color: black;
+  padding: 5px;
+  border: 1px solid;
+  background: #a5a58d;
+  border-radius: 10px;
+}
+
+.page {
+  float: left;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+#filter-text-input {
+  border-radius: 10px;
+  padding: 6px 10px;
+  width: auto;
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+
+.apps {
+  padding: 2em;
+  border-radius: 2em;
+  background-color: #ffe8d6;
+  text-align: center;
 }
