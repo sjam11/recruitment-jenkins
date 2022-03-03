@@ -1,6 +1,7 @@
 package se.kth.iv1201.project.repository;
 
 import org.springframework.transaction.annotation.*;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +43,13 @@ public interface UserRepository extends JpaRepository<User, Integer>{
      * @return User if email exsists, else null. 
      */
     User findPersonByEmail(String email);
+
+    /**
+     * Retreives all applicants from DB in List
+     * @param roleID
+     * @return
+     */
+    List<User> findAllByRoleID(int roleID);
 
     /**
      * Registers a User into Database.

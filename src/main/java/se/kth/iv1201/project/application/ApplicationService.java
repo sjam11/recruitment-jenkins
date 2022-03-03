@@ -5,16 +5,20 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import se.kth.iv1201.project.domain.App;
 import se.kth.iv1201.project.domain.Availability;
 import se.kth.iv1201.project.domain.Competence;
 import se.kth.iv1201.project.domain.CompetenceProfile;
-import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
+import se.kth.iv1201.project.domain.IllegalApplicationException;
 import se.kth.iv1201.project.domain.Role;
 import se.kth.iv1201.project.domain.User;
 import se.kth.iv1201.project.domain.UserDTO;
@@ -27,7 +31,7 @@ import se.kth.iv1201.project.repository.RoleRepository;
 
 @Service
 @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
-public class UserService {
+public class ApplicationService {
     
     @Autowired
     private UserRepository userRepository;
@@ -57,22 +61,26 @@ public class UserService {
      * @throws IllegalUserRegistrationException
      */
     public UserDTO createUser(String firstName, String lastName, String pin, String email, 
-                            String password, String roleName, String username) throws IllegalUserRegistrationException{
+                            String password, String roleName, String username) throws IllegalApplicationException{
         
+        if(email == null || firstName == null || lastName == null || pin == null || password == null || roleName == null || username == null){
+            throw new IllegalApplicationException("Fields left empty, please fill out every field.");
+        }
+
         Role role = roleRepository.findRoleByName(roleName);
 
         if(userRepository.findPersonByPin(pin) != null){
-            throw new IllegalUserRegistrationException("Person identification number: " + 
+            throw new IllegalApplicationException("Person identification number: " + 
                         pin + " already exist."); 
         }
 
         if(userRepository.findPersonByUsername(username) != null){
-            throw new IllegalUserRegistrationException("Username: " + 
+            throw new IllegalApplicationException("Username: " + 
                         username + " is already in use."); 
         }
 
         if(role.getName() == null){
-            throw new IllegalUserRegistrationException("No matching role for: " + 
+            throw new IllegalApplicationException("No matching role for: " + 
                         roleName + "in the system."); 
         }
 
@@ -80,7 +88,7 @@ public class UserService {
         try{
             userRepository.save(user);
         } catch(Exception e){
-            throw new IllegalUserRegistrationException("Could not save user in database");
+            throw new IllegalApplicationException("Could not save user in database");
         }
 
         return user;
@@ -93,15 +101,15 @@ public class UserService {
      * @return the user if its registered.
      * @throws IllegalUserRegistrationException
      */
-    public UserDTO checkUser(String username, String password) throws IllegalUserRegistrationException {
+    public UserDTO checkUser(String username, String password) throws IllegalApplicationException {
         User user = userRepository.findPersonByUsername(username);
         if(user == null){
-            throw new IllegalUserRegistrationException("The username: " + 
+            throw new IllegalApplicationException("The username: " + 
             username + "does not have a account."); 
         }
         
         if(!MD5(password).equals(user.getPassword())){
-            throw new IllegalUserRegistrationException("Incorrect password.");
+            throw new IllegalApplicationException("Incorrect password.");
         }
 
         return user;
@@ -113,13 +121,12 @@ public class UserService {
      * @return the role of the user
      * @throws IllegalUserRegistrationException
      */
-    public String checkRole(User user) throws IllegalUserRegistrationException{
+    public String checkRole(User user) throws IllegalApplicationException{
         if(user == null) {
-            throw new IllegalUserRegistrationException("Database error."); 
+            throw new IllegalApplicationException("Server error."); 
         }
 
-        String role = roleRepository.findRoleNameByRoleID(user.getRoleID());
-        return role;
+        return roleRepository.findRoleNameByRoleID(user.getRoleID());
     }
 
     /**
@@ -129,7 +136,10 @@ public class UserService {
      * @param yearsOfExperience the years of experience. 
      * @return the comptence profile
      */
-    public void addCompetence(UserDTO user, String competenceName, BigDecimal yearsOfExperience) throws IllegalUserRegistrationException{
+    public void addCompetence(UserDTO user, String competenceName, BigDecimal yearsOfExperience) throws IllegalApplicationException{
+        if(user == null || competenceName == null || yearsOfExperience == null) {
+            throw new IllegalApplicationException("Server error."); 
+        }
 
         competenceName = competenceName.replaceAll("-", " ");
         Competence competence = competenceRepository.findCompetenceByName(competenceName);
@@ -139,7 +149,7 @@ public class UserService {
         try{
             competenceProfileRepository.save(competenceProfile);
         } catch(Exception e){
-            throw new IllegalUserRegistrationException("Could not save competence in database");
+            throw new IllegalApplicationException("Could not save competence in database");
         }
     }
 
@@ -150,14 +160,54 @@ public class UserService {
      * @param toDate available to date.
      * @throws IllegalUserRegistrationException
      */
-    public void addAvailability(UserDTO user, Date fromDate, Date toDate) throws IllegalUserRegistrationException {
+    public void addAvailability(UserDTO user, Date fromDate, Date toDate) throws IllegalApplicationException {
+        if(user == null || fromDate == null || toDate == null) {
+            throw new IllegalApplicationException("Server error."); 
+        }
+
         int personID = user.getPersonID();
         Availability availability = new Availability(personID, fromDate, toDate);
 
         try{
             availabilityRepository.save(availability);
         } catch(Exception e){
-            throw new IllegalUserRegistrationException("Could not save availibility in database");
+            throw new IllegalApplicationException("Could not save availibility in database");
+        }
+    }
+
+    /**
+     * @return all of the availability period and competence for all applicants.
+     * @throws IllegalApplicationException
+     */
+    public ArrayList<App> getApplications() throws IllegalApplicationException{
+        ArrayList<App> applications = new ArrayList<App>();
+        App app;
+        HashMap<Date, Date> availability = new HashMap<>();
+        HashMap<String, BigDecimal> competence = new HashMap<>();
+        
+        try{
+            List<User> allUsers = userRepository.findAllByRoleID(2);
+        
+            for(User user : allUsers){
+                int userID = user.getPersonID();
+                List<Availability> allAvailability = availabilityRepository.findAllByPersonID(userID);
+                List<CompetenceProfile> allCompetence = competenceProfileRepository.findAllByPersonID(userID);
+                for(Availability a : allAvailability){
+                    availability.put(a.getFromDate(), a.getToDate());
+                }
+                
+                for(CompetenceProfile c : allCompetence){
+                    String competenceName = competenceRepository.getCompetenceNameByCompetenceID(c.getCompetenceID());
+                    competence.put(competenceName, c.getYearOfExperience());
+                }
+    
+                app = new App(user, competence, availability);
+                applications.add(app);
+            }
+    
+            return applications; 
+        } catch(Exception e){
+            throw new IllegalApplicationException("Database fetch error");
         }
     }
 
