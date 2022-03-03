@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{resources/fragments/layout}"
+>
+  <head>
+    <title>Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/style.css}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{resources/css/reset.css}"
+    />
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div class="outer">
+        <h3 class="banner">All applications</h3>
+          <div th:each="app: ${applications}" class="app-loop">
+            <div
+              class="app-button"
+              th:text="${app.person.firstName+' '+app.person.lastName}"
+            ></div>
+          </div>
+        </div>
+
+        <div class="grid-container">
+          <div th:if="${prevPage == true}" class="page">
+            <form method="POST" th:action="@{/prev}">
+              <button
+                type="submit"
+                value="Previous page"
+                name="previous-page"
+                id="page-button"
+              >
+                Previous page
+              </button>
+            </form>
+          </div>
+          <div th:if="${nextPage == true}" class="page">
+            <form method="POST" th:action="@{/next}">
+              <button
+                type="submit"
+                value="Next page"
+                name="next-page"
+                id="page-button"
+              >
+                Next page
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -25,20 +25,40 @@ public class App {
         this.availability = availability;
     }
 
+    
+    /** 
+     * @param person the users personal information
+     */
     public void setPerson(User person){
         this.person = person;
     }
 
+    
+    /** 
+     * @param competence the area of expertise and the amount of years in that field.
+     */
     public void setCompence(HashMap<String,BigDecimal> competence){
         this.competence = competence;
     }
 
-    public HashMap<String,BigDecimal> getCompetence(){
+    
+    /** 
+     * @return HashMap<String, Integer> the area of expertise and the amount of years in that field.
+     */
+    public HashMap<String, BigDecimal> getCompetence(){
         return competence;
     }
+    
+    /** 
+     * @return HashMap<String, String> the dates they are availible to work
+     */
     public HashMap<Date,Date> getAvailability(){
         return availability;
     }
+    
+    /** 
+     * @return UserDTO the personal information about the user
+     */
     public UserDTO getPerson(){
         return person;
     }
