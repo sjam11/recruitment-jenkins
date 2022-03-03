@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 
 import se.kth.iv1201.project.domain.IllegalApplicationException;
 
+/**
+ * Contains all exception handling methods.
+ */
 @Controller
 @ControllerAdvice
-
 public class ExceptionHandlers implements ErrorController {
 
     
@@ -37,7 +39,9 @@ public class ExceptionHandlers implements ErrorController {
         else if (exception.getMessage().toUpperCase().contains("SIGNUP")) {
             model.addAttribute("msg", "User not find, Signup and try again.");}
         else if (exception.getMessage().toUpperCase().contains("USER")) {
-            model.addAttribute("msg", "Access Denied, Login and try again.");} 
+            model.addAttribute("msg", "Access Denied, Login and try again.");}
+        else if(exception.getMessage().toUpperCase().contains("EMPTY")) {
+            model.addAttribute("msg", "Fields left empty, please fill out every field.");} 
         else {
             model.addAttribute("msg", "Something went wrong, try again");
         }

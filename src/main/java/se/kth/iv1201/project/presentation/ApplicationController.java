@@ -20,7 +20,9 @@ import se.kth.iv1201.project.domain.App;
 import se.kth.iv1201.project.domain.IllegalApplicationException;
 import se.kth.iv1201.project.domain.UserDTO;
 
-
+/**
+ * Controller handling all HTTP requests to context root
+ */
 @Controller
 @Scope("session")
 public class ApplicationController {
@@ -240,17 +242,11 @@ public class ApplicationController {
         return "welcome";
      }
      
-
-     
      /** 
       * @param recruiterFilterForm holds the information the recruiter input in the recruiter view to filter the applications.
       * @param model refers to the interface model that is sent to the html view application
       * @return String is the html name of the view that is loaded.
-<<<<<<< HEAD:src/main/java/se/kth/iv1201/project/presentation/ApplicationController.java
       * @throws IllegalApplicationException 
-=======
-      * @throws IllegalApplicationException
->>>>>>> c3f581d0de2f0c0943727888580a989198925e6c:src/main/java/se/kth/iv1201/project/presentation/UserController.java
       */
      @RequestMapping(value={ DEFAULT_PAGE_URL+ RECRUITER_PAGE_URL,DEFAULT_PAGE_URL+NEXT_PAGE_URL,DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL },method=RequestMethod.GET)
      public String recruiter(Model model) throws IllegalApplicationException{
@@ -271,10 +267,7 @@ public class ApplicationController {
       * @param recruiterFilterForm holds the information the recruiter input in the recruiter view to filter the applications.
       * @param model refers to the interface model that is sent to the html view application
       * @return String is the html name of the view that is loaded.
-<<<<<<< HEAD:src/main/java/se/kth/iv1201/project/presentation/ApplicationController.java
      * @throws IllegalApplicationException
-=======
->>>>>>> c3f581d0de2f0c0943727888580a989198925e6c:src/main/java/se/kth/iv1201/project/presentation/UserController.java
       */
       private String splitPageSetup(Model model) throws IllegalApplicationException{
         applications = service.getApplications();
@@ -295,11 +288,7 @@ public class ApplicationController {
       * @param recruiterFilterForm holds the information the recruiter input in the recruiter view to filter the applications.
       * @param model refers to the interface model that is sent to the html view application
       * @return String is the html name of the view that is loaded.
-<<<<<<< HEAD:src/main/java/se/kth/iv1201/project/presentation/ApplicationController.java
      * @throws IllegalApplicationException
-=======
-      * @throws IllegalApplicationException
->>>>>>> c3f581d0de2f0c0943727888580a989198925e6c:src/main/java/se/kth/iv1201/project/presentation/UserController.java
       */
      @RequestMapping(value={DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL}, method = RequestMethod.POST)  
      public String prevPage(Model model) throws IllegalApplicationException{

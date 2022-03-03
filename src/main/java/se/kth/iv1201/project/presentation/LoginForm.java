@@ -1,12 +1,12 @@
 package se.kth.iv1201.project.presentation;
 
- class LoginForm {
+/**
+ * Form bean for login
+ */
+class LoginForm {
 
     private String  username;
     private String password;
-
-
-
     
     /** 
      * @return String the password of the user
@@ -33,8 +33,6 @@ package se.kth.iv1201.project.presentation;
     }
 
 
-    
-    
     /** 
      * @param newElem The username of the user of the account that will be
      *               created.     

@@ -65,6 +65,4 @@ public class App {
     public UserDTO getPerson(){
         return person;
     }
-
-
 }

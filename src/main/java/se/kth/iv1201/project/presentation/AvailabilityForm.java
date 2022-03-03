@@ -2,13 +2,13 @@ package se.kth.iv1201.project.presentation;
 
 import java.sql.Date;
 
+/**
+ * Form bean for availability
+ */
 public class AvailabilityForm {
     
     private Date fromDate;
     private Date toDate;
-
-
-
 
     /** 
      * @return Date the ToDate of the user avalability 
@@ -17,9 +17,6 @@ public class AvailabilityForm {
         return toDate;
     }
 
-
-    
-    
     /** 
      * @param newElem The ToDate of the user avalability 
      * */
@@ -34,9 +31,6 @@ public class AvailabilityForm {
         return fromDate;
     }
 
-
-    
-    
     /** 
      * @param newElem The FromDate of the user avalability 
      * */

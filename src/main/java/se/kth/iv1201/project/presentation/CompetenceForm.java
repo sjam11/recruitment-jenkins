@@ -2,6 +2,9 @@ package se.kth.iv1201.project.presentation;
 
 import java.math.BigDecimal;
 
+/**
+ * Form bean for competences
+ */
 class CompetenceForm {
 
     private String expertise;

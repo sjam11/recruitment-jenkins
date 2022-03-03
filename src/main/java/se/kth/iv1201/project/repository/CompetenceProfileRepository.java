@@ -37,4 +37,11 @@ public interface CompetenceProfileRepository extends JpaRepository<CompetencePro
     @Override
     <S extends CompetenceProfile> S save(S competenceProfile);
 
+    /**
+     * Returns all competence profiles with the specified competence
+     * @param competenceID of the competence to filter competence profiles.
+     * @return list of competence profiles
+     */
+    List<CompetenceProfile> findAllByCompetenceID(int competenceID);
+
 }

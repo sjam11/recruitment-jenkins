@@ -1,6 +1,8 @@
 package se.kth.iv1201.project.presentation;
 
-
+/**
+ * Form bean for creating a user/signing up
+ */
 class CreateUserForm {
 
     private String firstName;
@@ -11,7 +13,6 @@ class CreateUserForm {
     private String username;
 
 
-    
     /** 
      * @return String the firstname of the user
      */
@@ -28,7 +29,6 @@ class CreateUserForm {
         firstName = newElem;
     }
 
- 
     
     /** 
      * 
@@ -38,7 +38,6 @@ class CreateUserForm {
         return username;
     }
 
-    
     
     /** 
      * @param newElem The username of the user of the account that will be
@@ -57,7 +56,6 @@ class CreateUserForm {
     }
 
 
-    
     /** 
      * @param newElem The password of the user of the account that will be
      *               created.
@@ -75,7 +73,6 @@ class CreateUserForm {
     }
 
 
-    
     /** 
      * @param newElem The emial of the user of the account that will be
      *               created.
@@ -93,7 +90,6 @@ class CreateUserForm {
     }
 
 
-    
     /** 
      * @param newElem The personnumber of the user of the account that will be
      *               created.
@@ -111,7 +107,6 @@ class CreateUserForm {
     }
 
 
-    
     /** 
      * @param newName The lastname of the user of the account that will be
      *               created.
