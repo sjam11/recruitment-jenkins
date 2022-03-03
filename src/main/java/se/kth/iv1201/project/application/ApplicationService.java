@@ -102,6 +102,10 @@ public class ApplicationService {
      * @throws IllegalUserRegistrationException
      */
     public UserDTO checkUser(String username, String password) throws IllegalApplicationException {
+        if(username == null || password == null){
+            throw new IllegalApplicationException("Fields left empty, please fill out every field.");
+        }
+
         User user = userRepository.findPersonByUsername(username);
         if(user == null){
             throw new IllegalApplicationException("The username: " + 
@@ -165,6 +169,9 @@ public class ApplicationService {
             throw new IllegalApplicationException("Server error."); 
         }
 
+        if(fromDate.compareTo(toDate)>0){ 
+            throw new IllegalApplicationException("To date is before from date");
+        }
         int personID = user.getPersonID();
         Availability availability = new Availability(personID, fromDate, toDate);
 
