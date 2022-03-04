@@ -79,11 +79,12 @@ public class ApplicationController {
      * @throws IllegalApplicationException
      */
     @PostMapping(DEFAULT_PAGE_URL+LOGIN_PAGE_URL) 
-    public String submitLogin(LoginForm loginForm, CompetenceForm competenceForm,Model model) throws IllegalApplicationException{
+    public String submitLogin(RecruiterFilterForm recruiterFilterForm,LoginForm loginForm, CompetenceForm competenceForm,Model model) throws IllegalApplicationException{
         currentUser = service.checkUser(loginForm.getUsername(),loginForm.getPassword());
         model.addAttribute("currentUser", currentUser);
         if(currentUser.getRoleID()==1){
-            return splitPageSetup(model);
+           model.addAttribute("applications", "Add a filter to see applications");
+            return "recruiter";
         }
         return "application";
     }
@@ -96,12 +97,13 @@ public class ApplicationController {
      * @throws IllegalApplicationException
      */
     @PostMapping(DEFAULT_PAGE_URL+SIGNUP_PAGE_URL)  
-    public String submitSignup(CreateUserForm createUserForm, CompetenceForm competenceForm,Model model) throws IllegalApplicationException{
+    public String submitSignup(RecruiterFilterForm recruiterFilterForm,CreateUserForm createUserForm, CompetenceForm competenceForm,Model model) throws IllegalApplicationException{
         String roleName = "applicant";
         currentUser = service.createUser(createUserForm.getFirstName(),createUserForm.getLastName(),createUserForm.getPersonNr(),createUserForm.getEmail(),createUserForm.getPassword(),roleName,createUserForm.getUsername());
         model.addAttribute("currentUser", currentUser);
        if(currentUser.getRoleID()==1){
-        return splitPageSetup(model);
+        model.addAttribute("applications", "Add a filter to see applications");
+        return "recruiter";
        }
         return "application";
     }
@@ -250,12 +252,13 @@ public class ApplicationController {
       * @throws IllegalApplicationException
       */
      @RequestMapping(value={ DEFAULT_PAGE_URL+ RECRUITER_PAGE_URL,DEFAULT_PAGE_URL+NEXT_PAGE_URL,DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL },method=RequestMethod.GET)
-     public String recruiter(Model model) throws IllegalApplicationException{
+     public String recruiter(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
         if(currentUser==null){
             throw new IllegalApplicationException("No user logged in.");
         }
         else if(currentUser.getRoleID()==1){
-            return splitPageSetup(model);
+           model.addAttribute("applications", "Add a filter to see applications");
+            return "recruiter";
         }
        else{
         throw new IllegalApplicationException("Role not authorized.");
@@ -263,14 +266,16 @@ public class ApplicationController {
      }
 
      /** 
-      * Enables the next page feature to split up the application list
-      * into sets of amountApplications, default amount 8.
+      * Filters application list based on filter parameters, and splits up result into pages.
+      * sets of amountApplications, default amount 8.
       * @param recruiterFilterForm holds the information the recruiter input in the recruiter view to filter the applications.
       * @param model refers to the interface model that is sent to the html view application
       * @return String is the html name of the view that is loaded.
       */
-      private String splitPageSetup(Model model){
-        applications = service.getApplications();
+      @DateTimeFormat(pattern = "yyyy-mm-dd")
+      @RequestMapping(value={DEFAULT_PAGE_URL+RECRUITER_PAGE_URL,DEFAULT_PAGE_URL+NEXT_PAGE_URL,DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL}, method = RequestMethod.POST, params ="filter")  
+      public String filter(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
+        applications = service.getApplications(recruiterFilterForm.getExpertise(),recruiterFilterForm.getName(),recruiterFilterForm.getFromDate(),recruiterFilterForm.getToDate());
         if(applications.size()>amountApplications) {
             List<App> multiplePages=applications.subList(0,amountApplications);
             model.addAttribute("applications",multiplePages);
@@ -291,7 +296,7 @@ public class ApplicationController {
       * @throws IllegalApplicationException
       */
      @RequestMapping(value={DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL}, method = RequestMethod.POST)  
-     public String prevPage(Model model) throws IllegalApplicationException{
+     public String prevPage(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
 
         if(currentUser.getRoleID()==1){
 
@@ -326,7 +331,7 @@ public class ApplicationController {
      * @throws IllegalApplicationException
       */
      @RequestMapping(value={DEFAULT_PAGE_URL+NEXT_PAGE_URL}, method = RequestMethod.POST)  
-     public String nextPage(Model model) throws IllegalApplicationException{
+     public String nextPage(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
         if(currentUser.getRoleID()==1){
             if(applications.size()-(nextIndex) > amountApplications) {
                 List<App> multiplePages=applications.subList(nextIndex,nextIndex+amountApplications);

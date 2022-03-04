@@ -2,7 +2,6 @@ package se.kth.iv1201.project.presentation;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import se.kth.iv1201.project.domain.IllegalUserRegistrationException;
+import se.kth.iv1201.project.domain.IllegalApplicationException;
 
 @Controller
 @ControllerAdvice
@@ -26,9 +25,9 @@ public class ExceptionHandlers implements ErrorController {
      * @param model refers to the interface model that is sent to the html view application
      * @return String is the html name of the view that is loaded.
      */
-    @ExceptionHandler(IllegalUserRegistrationException.class)
+    @ExceptionHandler(IllegalApplicationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleException(IllegalUserRegistrationException exception, Model model) {
+    public String handleException(IllegalApplicationException exception, Model model) {
         if (exception.getMessage().toUpperCase().contains("DATABASE")) {
             model.addAttribute("msg", "Cannot reach database, try again later.");}
         else if (exception.getMessage().toUpperCase().contains("ROLE")) {
