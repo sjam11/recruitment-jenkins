@@ -276,7 +276,7 @@ public class ApplicationController {
       @DateTimeFormat(pattern = "yyyy-MM-dd")
       @RequestMapping(value={DEFAULT_PAGE_URL+RECRUITER_PAGE_URL,DEFAULT_PAGE_URL+NEXT_PAGE_URL,DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL}, method = RequestMethod.POST, params ="filter")  
       public String filter(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
-        applications = service.getApplications(recruiterFilterForm.getExpertise(),recruiterFilterForm.getName(),recruiterFilterForm.getFromDate(),recruiterFilterForm.getToDate());
+        applications = service.getApplicationsWithCompetenceName(recruiterFilterForm.getExpertise());
         if(applications.size()>amountApplications) {
             List<App> multiplePages=applications.subList(0,amountApplications);
             model.addAttribute("applications",multiplePages);
