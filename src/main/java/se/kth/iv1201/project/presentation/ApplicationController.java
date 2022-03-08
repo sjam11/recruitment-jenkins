@@ -273,7 +273,7 @@ public class ApplicationController {
       * @return String is the html name of the view that is loaded.
      * @throws IllegalApplicationException
       */
-      @DateTimeFormat(pattern = "yyyy-mm-dd")
+      @DateTimeFormat(pattern = "yyyy-MM-dd")
       @RequestMapping(value={DEFAULT_PAGE_URL+RECRUITER_PAGE_URL,DEFAULT_PAGE_URL+NEXT_PAGE_URL,DEFAULT_PAGE_URL+PREVIOUS_PAGE_URL}, method = RequestMethod.POST, params ="filter")  
       public String filter(RecruiterFilterForm recruiterFilterForm,Model model) throws IllegalApplicationException{
         applications = service.getApplications(recruiterFilterForm.getExpertise(),recruiterFilterForm.getName(),recruiterFilterForm.getFromDate(),recruiterFilterForm.getToDate());
