@@ -243,7 +243,6 @@ public class ApplicationService {
      * @throws IllegalApplicationException if failed to fetch applications
      */
     public ArrayList<App> getApplicationsWithCompetenceName(String competenceName) throws IllegalApplicationException {
-        System.out.println(competenceName);
         competenceName = competenceName.replaceAll("-", " ");
         ArrayList<App> applications = new ArrayList<App>();
         App app;
