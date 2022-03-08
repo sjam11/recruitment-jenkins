@@ -5,6 +5,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,10 +183,13 @@ public class ApplicationService {
      * @param toDate available to date.
      * @throws IllegalApplicationException if failed to create user
      */
-    public void addAvailability(UserDTO user, Date fromDate, Date toDate) throws IllegalApplicationException {
-        if(user == null || fromDate == null || toDate == null) {
+    public void addAvailability(UserDTO user, String frmDate, String tDate) throws IllegalApplicationException {
+        if(user == null || frmDate == null || tDate == null) {
             throw new IllegalApplicationException("Server error."); 
         }
+
+        Date fromDate = StringToDate(frmDate);
+        Date toDate = StringToDate(tDate);
 
         if(fromDate.compareTo(toDate)>0){ 
             throw new IllegalApplicationException("To date is before from date");
@@ -288,5 +294,23 @@ public class ApplicationService {
         }
         m.update(s.getBytes(),0,s.length());     
         return new BigInteger(1,m.digest()).toString(16); 
+    }
+
+    /**
+     * Converts a string to a date.
+     * @param date the string to be converted.
+     * @return the date. 
+     * @throws IllegalApplicationException
+     */
+    private static Date StringToDate(String date) throws IllegalApplicationException{
+        DateTimeFormatter da = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate ld = null;
+        try {
+            ld = LocalDate.parse(date, da);
+            Date d = Date.valueOf(date);
+            return d;
+        } catch (DateTimeParseException e) {
+            throw new IllegalApplicationException("Bad format on date, the format is yyyy/mm/dd");
+        } 
     }
 }
