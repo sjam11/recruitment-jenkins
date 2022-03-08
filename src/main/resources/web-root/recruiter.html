@@ -25,6 +25,54 @@
     <main layout:fragment="content">
       <div class="outer">
         <h3 class="banner">All applications</h3>
+         Filter:
+        <form
+          method="POST"
+          th:action="@{/recruiter}"
+          th:object="${recruiterFilterForm}"
+        >
+          <label for="name">Name</label>:<input
+            type="text"
+            th:field="*{name}"
+            id="filter-text-input"
+          />
+          <label for="expertise">Expertise:</label>
+          <select th:field="*{expertise}">
+            <option th:value="null">All</option>
+            <option th:value="ticket-sales">Tickets</option>
+            <option th:value="lotteries">Lotteries</option>
+            <option th:value="roller-coaster-operation">Roller coaster</option>
+          </select>
+          <div>
+            <label for="from-date">From date:</label>
+            <input
+              type="text"
+              th:field="*{fromDate}"
+              placeholder="yyyy-mm-dd"
+              id="filter-text-input"
+            />
+
+            <label for="to-date">To date:</label>
+
+            <input
+              type="text"
+              th:field="*{toDate}"
+              placeholder="yyyy-mm-dd"
+              id="filter-text-input"
+            />
+          </div>
+
+          <p class="submit">
+            <input class="button" type="submit" name="filter" value="Filter" />
+          </p>
+        </form>
+        <span th:if="${applications == 'Add a filter to see applications'}"
+          >Add a filter to see applications</span
+        >
+        <div
+          th:unless="${applications == 'Add a filter to see applications'}"
+          class="apps"
+        >
           <div th:each="app: ${applications}" class="app-loop">
             <div
               class="app-button"
