@@ -12,11 +12,12 @@ import se.kth.iv1201.project.domain.User;
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * Looks for a user with specified @param id.
      * Returns User if found, else null.
+     * 
      * @param id ID of the user to search for.
      * @return User if found, else null.
      */
@@ -25,6 +26,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     /**
      * Looks for a user with specified pin, person number.
      * Returns User if there is a user with pin, else null.
+     * 
      * @param pin person number of user
      * @return User if found, else null.
      */
@@ -32,20 +34,23 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     /**
      * Looks for a user with specified username.
+     * 
      * @param username Username of user to search for.
-     * @return User if username exsists, else null. 
+     * @return User if username exsists, else null.
      */
     User findPersonByUsername(String username);
 
     /**
      * Looks for a user with specified email.
+     * 
      * @param email Email of user to search for.
-     * @return User if email exsists, else null. 
+     * @return User if email exsists, else null.
      */
     User findPersonByEmail(String email);
 
     /**
      * Retreives all applicants from DB in List
+     * 
      * @param roleID
      * @return
      */
@@ -56,5 +61,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
      */
     @Override
     <S extends User> S save(S user);
-    
+
 }

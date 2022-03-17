@@ -14,12 +14,13 @@ import se.kth.iv1201.project.domain.Availability;
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface AvailabilityRepository extends JpaRepository<Availability, Integer>{
+public interface AvailabilityRepository extends JpaRepository<Availability, Integer> {
 
     /**
      * Fetches all availability periods for person with person id
+     * 
      * @param personID id for person to fetch availability periods for
-     * @return list of all availability 
+     * @return list of all availability
      */
     List<Availability> findAllByPersonID(int personID);
 

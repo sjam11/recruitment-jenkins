@@ -12,10 +12,11 @@ import se.kth.iv1201.project.domain.Competence;
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface CompetenceRepository extends JpaRepository<Competence, Integer>{
+public interface CompetenceRepository extends JpaRepository<Competence, Integer> {
 
     /**
      * Returns the name of a competence.
+     * 
      * @param competence_id the id of the competence, to get the name of
      * @return name of competences
      */
@@ -23,6 +24,7 @@ public interface CompetenceRepository extends JpaRepository<Competence, Integer>
 
     /**
      * Returns competence from competence name
+     * 
      * @param name of competence
      * @return Competence
      */

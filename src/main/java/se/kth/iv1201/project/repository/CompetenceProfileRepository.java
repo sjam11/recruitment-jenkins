@@ -10,15 +10,16 @@ import org.springframework.stereotype.Repository;
 import se.kth.iv1201.project.domain.CompetenceProfile;
 
 /**
- * Contains all database access concerning the CompetenceProfile of the Applicant.
+ * Contains all database access concerning the CompetenceProfile of the
+ * Applicant.
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface CompetenceProfileRepository extends JpaRepository<CompetenceProfile, Integer>{
-
+public interface CompetenceProfileRepository extends JpaRepository<CompetenceProfile, Integer> {
 
     /**
      * Finds competence profile for specific person
+     * 
      * @param id of person to find competence profile of
      * @return competence profile
      */
@@ -26,6 +27,7 @@ public interface CompetenceProfileRepository extends JpaRepository<CompetencePro
 
     /**
      * Returns all competence for a specific person
+     * 
      * @param personID
      * @return list of competence for person
      */
@@ -39,6 +41,7 @@ public interface CompetenceProfileRepository extends JpaRepository<CompetencePro
 
     /**
      * Returns all competence profiles with the specified competence
+     * 
      * @param competenceID of the competence to filter competence profiles.
      * @return list of competence profiles
      */
