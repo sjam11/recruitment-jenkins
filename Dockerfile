@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk
+COPY target/*.jar /
 EXPOSE 8080
-ADD sjam16/jenkins-exjobb.jar jenkins-exjobb.jar
-ENTRYPOINT ["java","-jar","/jenkins-exjobb.jar"]
+ENTRYPOINT ["java","-jar","/my-app-1.0-SNAPSHOT.jar"]

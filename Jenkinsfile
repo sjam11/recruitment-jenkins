@@ -1,33 +1,33 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
+pipeline{
+    agent any
+    tools {
+        maven 'MAVEN'
     }
+    stages {
+        stage('Build Maven') {
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sjam11/recruitment-jenkins.git']]])
 
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("sjam16/jenkins-exjobb")
-    }
-
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
+                sh "mvn clean install"
+                
+            }
         }
-    }
-
-    stage('Push image') {
-        /* 
-			You would need to first register with DockerHub before you can push images to your account
-		*/
-        docker.withRegistry('https://registry.hub.docker.com', '1a34aa1c-1239-4516-a530-a8457f302b69') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-            } 
-                echo "Trying to Push Docker Build to DockerHub"
+        stage('Build Docker Image') {
+            steps {
+                script {
+                  sh 'docker build -t sjam16/my-app-1.0 .'
+                }
+            }
+        }
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'jenkdockid', variable: 'jenkdockid')]) {
+                    sh 'docker login -u sjam16 -p ${jenkdockid}'
+                 }  
+                 sh 'docker push sjam16/my-app-1.0'
+                }
+            }
+        }
     }
 }
