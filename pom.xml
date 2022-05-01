@@ -100,6 +100,7 @@
 				</dependencies>
 			  </plugin>
 		</plugins>
+		<finalName>jenkins-exjobb</finalName>
 	</build>
 
 
