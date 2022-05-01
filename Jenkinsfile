@@ -1,19 +1,21 @@
 pipeline{
     agent any
-    
+    tools {
+        maven 'Maven:latest'
+    }
     stages {
         stage('Build Maven') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sjam11/recruitment-jenkins.git']]])
 
-                "mvn clean install"
+                sh "mvn clean install"
                 
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                'docker build -t sjam16/my-app-1.0 .'
+                  sh 'docker build -t sjam16/my-app-1.0 .'
                 }
             }
         }
@@ -21,9 +23,9 @@ pipeline{
             steps {
                 script {
                  withCredentials([string(credentialsId: 'jenkdockid', variable: 'jenkdockid')]) {
-                    'docker login -u sjam16 -p ${jenkdockid}'
+                    sh 'docker login -u sjam16 -p ${jenkdockid}'
                  }  
-                 'docker push sjam16/my-app-1.0'
+                 sh 'docker push sjam16/my-app-1.0'
                 }
             }
         }
