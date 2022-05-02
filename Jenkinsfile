@@ -21,11 +21,7 @@ pipeline{
         }
         stage('Deploy Docker Image') {
             steps {
-                script {
-                 bat 'docker logout'
-                 withCredentials([string(credentialsId: 'jenkdockid', variable: 'dockid')]) {
-                    bat 'docker login -u sjam16 -p ${dockid}'
-                 }  
+                script {  
                  bat 'docker push sjam16/my-app-1.0'
                 }
             }
