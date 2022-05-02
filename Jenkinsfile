@@ -8,7 +8,7 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sjam11/recruitment-jenkins.git']]])
 
-                sh "mvn clean install"
+                sh 'mvn clean install'
                 
             }
         }
