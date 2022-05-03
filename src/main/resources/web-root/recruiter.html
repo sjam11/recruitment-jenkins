@@ -52,10 +52,18 @@
           class="apps"
         >
           <div th:each="app: ${applications}" class="app-loop">
-            <div
-              class="app-button"
-              th:text="${app.person.firstName+' '+app.person.lastName}"
-            ></div>
+            <form method="POST" th:action="@{/applic}">
+              <button
+                type="submit"
+                value="${app.person.firstName+' '+app.person.lastName}"
+                name="personApplic"
+                id="page-button">
+                <div
+                  class="app-button"
+                  th:text="${app.person.firstName+' '+app.person.lastName}"
+                ></div>
+              </button>
+            </form>
           </div>
         </div>
 

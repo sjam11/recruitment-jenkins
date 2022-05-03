@@ -37,6 +37,7 @@ public class ApplicationController {
     static final String RECRUITER_PAGE_URL = "recruiter";
     static final String NEXT_PAGE_URL = "next";
     static final String PREVIOUS_PAGE_URL = "prev";
+    static final String APPLIC_SHOW_URL = "applic";
     @Autowired
     private ApplicationService service;
     private UserDTO currentUser;
@@ -404,6 +405,16 @@ public class ApplicationController {
                 model.addAttribute("nextPage", false);
             }
             return "recruiter";
+        } else {
+            throw new IllegalApplicationException("Role not authorized.");
+        }
+    }
+
+    @RequestMapping(value = { DEFAULT_PAGE_URL + APPLIC_SHOW_URL }, method = RequestMethod.POST)
+    public String showApplic(RecruiterFilterForm recruiterFilterForm, Model model) throws IllegalApplicationException {
+        if (currentUser.getRoleID() == 1) {
+            
+            return "applic";
         } else {
             throw new IllegalApplicationException("Role not authorized.");
         }
