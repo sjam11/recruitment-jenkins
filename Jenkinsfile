@@ -15,14 +15,14 @@ pipeline{
         stage('Build Docker Image') {
             steps {
                 script {
-                  sh 'sudo docker build -t sjam16/my-app-1.0 .'
+                  sh 'docker build -t sjam16/my-app-1.0 .'
                 }
             }
         }
         stage('Deploy Docker Image') {
             steps {
                 script {  
-                 sh 'sudo docker push sjam16/my-app-1.0'
+                 sh 'docker push sjam16/my-app-1.0'
                 }
             }
         }
