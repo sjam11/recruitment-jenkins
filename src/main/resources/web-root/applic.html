@@ -6,7 +6,7 @@
   layout:decorate="~{resources/fragments/layout}"
 >
   <head>
-    <title>Application</title>
+    <title>Applications</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link
       rel="stylesheet"
@@ -25,10 +25,12 @@
         <div class="outer-child">
           <h2>User application</h2> 
           <div >
-           <tr th:each="expertise : ${currentExpertise}">
+           <tr th:each="appli : ${personApplications}">
              <div>
-              <td th:text="${expertise.key}"></td>
-              <td th:text="${expertise.value}"></td>
+              <td th:text="${appli.competence.key}"></td>
+              <td th:text="${appli.competence.value}"></td>
+              <td th:text="${appli.availability.key}"></td>
+              <td th:text="${appli.availability.value}"></td>
              </div>
            </tr>
           </div>

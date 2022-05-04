@@ -7,8 +7,8 @@ class CreateUserForm {
 
     private String firstName;
     private String lastName;
-    private String  personNr;
-    private String  email;
+    private String personNr;
+    private String email;
     private String password;
     private String username;
 

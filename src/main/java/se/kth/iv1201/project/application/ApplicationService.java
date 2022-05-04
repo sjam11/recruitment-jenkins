@@ -288,6 +288,37 @@ public class ApplicationService {
         }
     }
 
+    
+    public ArrayList<App> getApplic(String personID) throws IllegalApplicationException {
+        App application;
+        ArrayList<App> applications = new ArrayList<App>();
+        int person_id = Integer.parseInt(personID);
+        HashMap<Date, Date> availability = new HashMap<>();
+        HashMap<String, BigDecimal> competence = new HashMap<>();
+        try {
+            User user = userRepository.findPersonByPersonID(person_id);
+            List<CompetenceProfile> allCompetencesForPerson = competenceProfileRepository
+                    .findAllByPersonID(person_id);
+
+            for (CompetenceProfile c : allCompetencesForPerson) {
+                competence.clear();
+                availability.clear();
+                competence.put(competenceRepository.getCompetenceNameByCompetenceID(c.getCompetenceID()), c.getYearOfExperience());
+
+                List<Availability> allAvailability = availabilityRepository.findAllByPersonID(person_id);
+                for (Availability a : allAvailability) {
+                    availability.put(a.getFromDate(), a.getToDate());
+                }
+
+                application = new App(user, competence, availability);
+                applications.add(application);
+            }
+            return applications;
+        } catch(Exception e) {
+            throw new IllegalApplicationException("Database fetch error");
+        }
+    }
+
     /**
      * MD5 Hashing algorith used for hashing passwords.
      * 

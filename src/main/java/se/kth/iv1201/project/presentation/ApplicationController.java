@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import se.kth.iv1201.project.application.ApplicationService;
 import se.kth.iv1201.project.domain.App;
@@ -323,7 +324,6 @@ public class ApplicationController {
     public String filter(RecruiterFilterForm recruiterFilterForm, Model model) throws IllegalApplicationException {
 
         String expertice = recruiterFilterForm.getExpertise();
-        
         if (expertice.equals("all")) {
             applications = service.getApplications();
         } else {
@@ -410,12 +410,19 @@ public class ApplicationController {
         }
     }
 
-    @RequestMapping(value = { DEFAULT_PAGE_URL + APPLIC_SHOW_URL }, method = RequestMethod.POST)
-    public String showApplic(RecruiterFilterForm recruiterFilterForm, Model model) throws IllegalApplicationException {
+    @RequestMapping(value = {DEFAULT_PAGE_URL + APPLIC_SHOW_URL}, method = RequestMethod.POST)
+    public String showApplic(Model model, @RequestParam("personID") Integer personID) throws IllegalApplicationException {
+        System.out.println("hej");
         if (currentUser.getRoleID() == 1) {
-            
+            System.out.println("hej1");
+            System.out.println(personID);
+            ArrayList<App> personApplications = service.getApplic(Integer.toString(personID));
+            System.out.println("hej3");
+            model.addAttribute("personApplications", personApplications);
+            System.out.println("hej4");
             return "applic";
         } else {
+            System.out.println("fyy");
             throw new IllegalApplicationException("Role not authorized.");
         }
     }

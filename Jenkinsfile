@@ -8,14 +8,14 @@ pipeline{
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sjam11/recruitment-jenkins.git']]])
 
-                sh 'mvn clean install'
+                bat 'mvn clean install'
                 
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t sjam16/my-app-1.0 .'
+                  bat 'docker build -t sjam16/my-app-1.0 .'
                 }
             }
         }
@@ -23,9 +23,9 @@ pipeline{
             steps {
                 script {
                  withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u sjam16 -p ${dockerhubpwd}'
+                    bat 'docker login -u sjam16 -p ${dockerhubpwd}'
                  }  
-                 sh 'docker push sjam16/my-app-1.0'
+                 bat 'docker push sjam16/my-app-1.0'
                 }
             }
         }

@@ -47,6 +47,8 @@
         <span th:if="${applications == 'Add a filter to see applications'}"
           >Add a filter to see applications</span
         >
+
+
         <div
           th:unless="${applications == 'Add a filter to see applications'}"
           class="apps"
@@ -55,17 +57,14 @@
             <form method="POST" th:action="@{/applic}">
               <button
                 type="submit"
-                value="${app.person.firstName+' '+app.person.lastName}"
-                name="personApplic"
-                id="page-button">
-                <div
-                  class="app-button"
-                  th:text="${app.person.firstName+' '+app.person.lastName}"
-                ></div>
-              </button>
+                th:text="${app.person.firstName+' '+app.person.lastName}"
+                id="page-button"
+              ></button>
+                <input class="button" type="hidden" name="personName" th:value="${app.person.firstName+' '+app.person.lastName}"></input>
+                <input class="button" type="hidden" name="personID" th:value="${app.person.personID}"></input>
+              <p class="submit"></p>
             </form>
-          </div>
-        </div>
+          </div> 
 
         <div class="grid-container">
           <div th:if="${prevPage == true}" class="page">
