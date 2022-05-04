@@ -22,9 +22,7 @@ pipeline{
         stage('Deploy Docker Image') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                    bat 'docker login -u sjam16 -p ${dockerhubpwd}'
-                 }  
+                   
                  bat 'docker push sjam16/my-app-1.0'
                 }
             }
