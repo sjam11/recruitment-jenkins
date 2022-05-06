@@ -412,17 +412,11 @@ public class ApplicationController {
 
     @RequestMapping(value = {DEFAULT_PAGE_URL + APPLIC_SHOW_URL}, method = RequestMethod.POST)
     public String showApplic(Model model, @RequestParam("personID") Integer personID) throws IllegalApplicationException {
-        System.out.println("hej");
         if (currentUser.getRoleID() == 1) {
-            System.out.println("hej1");
-            System.out.println(personID);
             ArrayList<App> personApplications = service.getApplic(Integer.toString(personID));
-            System.out.println("hej3");
             model.addAttribute("personApplications", personApplications);
-            System.out.println("hej4");
             return "applic";
         } else {
-            System.out.println("fyy");
             throw new IllegalApplicationException("Role not authorized.");
         }
     }
